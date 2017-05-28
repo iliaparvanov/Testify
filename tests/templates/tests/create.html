@@ -1,0 +1,24 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+<!--TODO: FIX ALL LINKS/STATIC FILES-->
+<nav id="nav">
+  <ul>
+    <li><a href="/#intro" class="active">Introduction</a></li>
+    <li><a href="/#first">Creating tests</a></li>
+    <li><a href="/#second">Solving tests</a></li>
+    <li><a href="/#cta">Get Started</a></li>
+  </ul>
+  
+</nav>
+<ul style='margin-top: 200px;'>
+    <form action='post'>
+        Name of test: <input class='input1' type="text" name="test name"><br>
+        Subject: <input class='input2' type="text" name="questions"><br>
+        Number of questions: <input class='input3' type="text" name="questions"><br>
+        Number of answers: <input class='input4' type="text" name="answers"><br>
+        <input class='send_button' type="submit" value="Submit">
+        
+    </form>
+</ul>
+{% endblock %}

@@ -4,7 +4,25 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-(function($) {
+$(document).ready(function() {
+    $("#send_button").click(function() {
+        $("#select").val()
+
+        $.ajax({
+            url: "/post_subject/?pk="+$("#select").val()
+});
+
+$(document).ready(function() {
+    $("#send_button").click(function() {
+    	$("#input1").val();
+        
+
+        $.ajax({
+            url: "/add/?name="+$("#input1").val()
+
+});
+(function($) 
+{
 
 	skel.breakpoints({
 		xlarge: '(max-width: 1680px)',
@@ -133,7 +151,5 @@
 			$('.scrolly').scrolly({
 				speed: 1000
 			});
-
-	});
 
 })(jQuery);
