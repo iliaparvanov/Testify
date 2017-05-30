@@ -11,17 +11,16 @@ def create(request):
 	return render(request, 'tests/create.html')
 
 def add(request):
-	name = request.Get.get("name")
+	name1 = request.Get.get("name")
 #	subject = request.Get.get("subject")
 #	q_num = request.Get.get("q_num")
 #	a_num= request.Get.get("a_num")
 
-	test = Test(name = name, subject = subject, q_num = q_num, a_num = a_num)
+	test = Test(name = name1)
 	test.save()
 
 def post_subject(request):
 	subject = request.Get.get("subject")
-	tests = Test.objects
 
 def post_test(request):
 	pk = request.Get.get("pk")
