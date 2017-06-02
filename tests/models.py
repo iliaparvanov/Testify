@@ -6,7 +6,7 @@ class Test(models.Model):
 
 
 	def __str__(self):
-		return self.name + "-" + self.subject + "-" + self.q_num
+		return self.name
 
 class Questions(models.Model):
 	question = models.CharField(max_length=1000)
