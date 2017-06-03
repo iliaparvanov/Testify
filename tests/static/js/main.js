@@ -10,7 +10,7 @@ $(document).ready(function() {
 
         $.ajax({
             url: "/post_subject/?pk="+$("#select").val()
-});
+
 
 $(document).ready(function() {
     $("#send_button").click(function() {
@@ -20,7 +20,10 @@ $(document).ready(function() {
         $.ajax({
             url: "/add/?name="+$("#input1").val()
 
-});
+}).then(function(response){
+            console.log(response);
+        });
+
 (function($) 
 {
 
