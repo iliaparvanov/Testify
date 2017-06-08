@@ -4,25 +4,18 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-$(document).ready(function() {
-    $("#send_button").click(function() {
-        $("#select").val()
 
-        $.ajax({
-            url: "/post_subject/?pk="+$("#select").val()
-
-
-$(document).ready(function() {
-    $("#send_button").click(function() {
-    	$("#input1").val();
+// $(document).ready(function() {
+//     $("#send_button").click(function() {
+//     	$("#input1").val();
         
 
-        $.ajax({
-            url: "/add/?name="+$("#input1").val()
+//         $.ajax({
+//             url: "/post/?name="+$("#input1").val()
 
-}).then(function(response){
-            console.log(response);
-        });
+// }).then(function(response){
+//             console.log(response);
+//         });
 
 (function($) 
 {

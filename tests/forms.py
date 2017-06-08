@@ -1,4 +1,7 @@
 from django import forms
+from tests.models import Test
 
-class HomeForm(form.Form):
-	post = forms.ChartField()
+class TestForm(forms.ModelForm):
+     class Meta:
+        model=Test
+        fields= ['name']
