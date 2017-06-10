@@ -32,22 +32,17 @@ def addQuestions(request):
 		question_o.save()
 		q_num = request.POST.get("q_num", '')
 		q_num = int(q_num)
-		a_num = request.POST.get("a_num", '')
+		a_num = request.POST.get('a_num', '')
+		a_num = list(range(int(len(a_num)/3)))
+
 		answers = request.POST.getlist('answer', '')
 		for a in answers:
-			a = Answers(question=name, answer=a)
+			a = Answers(question=question_o, answer=a)
 			a.save()
 
 		if q_num > 1:
 			return render(request, 'tests/add.html', {'q_num' : q_num - 1, 'name' : request.POST.get('name', ''), 'a_num' : a_num})
 		else:
-			return HttpResponse("Done")
-
-def addAnswers(request):
-	if request.method == 'POST':
-		test = Test.objects.get(name=request.POST.get('name', ''))
-		answers = request.POST.getlist('answer', '')
-		for a in answers:
-			a = Answers(question=name, answer=a)
+			return render(request, 'tests/done.html')
 		
 		

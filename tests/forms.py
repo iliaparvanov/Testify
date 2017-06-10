@@ -10,3 +10,8 @@ class QuestionForm(forms.ModelForm):
      class Meta:
         model=Questions
         fields= ['name', 'question']
+
+class AnswersForm(forms.ModelForm):
+     class Meta:
+        model=Answers
+        fields= ['question', 'answer']

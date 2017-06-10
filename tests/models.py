@@ -23,3 +23,6 @@ class Answers(models.Model):
 	question = models.ForeignKey(Questions, on_delete = models.CASCADE)
 	answer = models.CharField(max_length=1000)
 
+	def __str__(self):
+		return str(self.question) + '-' + str(self.answer)
+
