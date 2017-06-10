@@ -6,12 +6,12 @@
 
 
 // $(document).ready(function() {
-//     $("#send_button").click(function() {
-//     	$("#input1").val();
+//     $("#Create").click(function() {
+//     	$("#name").val();
         
 
 //         $.ajax({
-//             url: "/post/?name="+$("#input1").val()
+//             url: "/add_q/?name="+$("#name").val()
 
 // }).then(function(response){
 //             console.log(response);

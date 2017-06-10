@@ -1,0 +1,31 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+<!--TODO: FIX ALL LINKS/STATIC FILES-->
+<nav id="nav">
+  <ul>
+    <li><a href="/#intro" class="active">Introduction</a></li>
+    <li><a href="/#first">Creating tests</a></li>
+    <li><a href="/#second">Solving tests</a></li>
+    <li><a href="/#cta">Get Started</a></li>
+  </ul>
+  
+</nav>
+<ul style='margin-top: 200px;'>
+
+    <form action=/add_q/ method="post" accept-charset="utf-8">
+        <label for="name"><input type="hidden" name="name" value="{{ name }}" id="name">
+        <label for="q_num"><input type="hidden" name="q_num" value="{{ q_num }}" id="q_num">
+        <label for="a_num"><input type="hidden" name="a_num" value="{{ a_num }}" id="a_num">
+        <label for="question">Question:</label><input type="text" name="question"  id="question"> 
+        {% for c in a_num %}
+        <label for="answer">Answer{{ forloop.counter }}:</label><input type="text" name="answer{{forloop.counter}}"  id="answer{{forloop.counter}}" > 
+        {% endfor %}
+        <p><input type="submit" value="Create" id="Create"></p>
+    </form>
+    
+</ul>
+
+
+
+{% endblock %}
