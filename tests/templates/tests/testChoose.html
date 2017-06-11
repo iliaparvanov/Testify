@@ -1,0 +1,39 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+<!--TODO: FIX ALL LINKS/STATIC FILES-->
+<script>
+function bigImg(x) {
+    document.getElementById(x).style.fontSize = "larger";
+};
+
+function normalImg(x) {
+    document.getElementById(x).style.fontSize = "x-large";
+};
+
+</script>
+
+<nav id="nav">
+  <ul>
+    <li><a href="/#intro" class="active">Introduction</a></li>
+    <li><a href="/#first">Creating tests</a></li>
+    <li><a href="/#second">Solving tests</a></li>
+    <li><a href="/#cta">Get Started</a></li>
+  </ul>
+  
+</nav>
+<form action='/getTest/' method="post" style="margin-top: 200px;">
+    <label for="br"><input type="hidden" name="br" value="{{ br }}" id="br">
+    {{ br }}
+    <select name='tests' id='tests' value='tests'>
+        {% for i in names %}
+        <option type='checkbox' name="test"  id="test" value='{{ i }}' />{{ i }}
+        {% endfor %}
+
+    </select>
+    
+    <p><input type="submit" value="Solve" id="Solve"></p>
+</form>
+
+
+{% endblock %}

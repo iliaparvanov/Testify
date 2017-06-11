@@ -15,3 +15,6 @@ class AnswersForm(forms.ModelForm):
      class Meta:
         model=Answers
         fields= ['question', 'answer']
+
+
+

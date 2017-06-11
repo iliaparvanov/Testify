@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^solve/', views.solve, name='solve'),
     url(r'^add/', views.addTest, name='addTest'),
     url(r'^add_q/', views.addQuestions, name='add_q'),
+    url(r'^testChoose/', views.testChoose, name='testChoose'),
+    url(r'^getTest/', views.getTest, name='getTest'),
 ]
