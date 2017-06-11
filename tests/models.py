@@ -9,12 +9,18 @@ class Test(models.Model):
 	def __str__(self):
 		return self.name + '-' + self.subject
 
+	class Meta:
+		ordering = ['pk']
+
 class Questions(models.Model):
 	question = models.CharField(max_length=1000)
 	name = models.ForeignKey(Test, on_delete = models.CASCADE)
 	answer_r = models.CharField(max_length=1000)
 	def __str__(self):
 		return str(self.name) + '-' + str(self.question)
+
+	class Meta:
+		ordering = ['pk']
 
 	
 	
@@ -24,5 +30,8 @@ class Answers(models.Model):
 	answer = models.CharField(max_length=1000)
 
 	def __str__(self):
-		return str(self.question) + '-' + str(self.answer)
+		return str(self.answer)
+
+	class Meta:
+		ordering = ['pk']
 

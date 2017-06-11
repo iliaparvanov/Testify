@@ -4,24 +4,43 @@
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
 <nav id="nav">
   <ul>
-    <li><a href="/#intro" class="active">Introduction</a></li>
-    <li><a href="/#first">Creating tests</a></li>
-    <li><a href="/#second">Solving tests</a></li>
-    <li><a href="/#cta">Get Started</a></li>
+    <li><a href="/#intro">Introduction</a></li>
+    <li><a href="/create">Creating tests</a></li>
+    <li><a href="/solve">Solving tests</a></li>
   </ul>
   
 </nav>
 
 
-<ul style='margin-top: 200px;'>
+
 {{ br }}
-	<form action=/getTest/ method="post">
-	    <label for="subject"> Question:</label><input type="text"  name="subject"  id="subject" value="{{ questions }}" readonly="True" />
-	    <label for="tests"><input type="hidden" name="tests" value="{{ tests }}" id="tests">
-	    <label for="br"><input type="hidden" name="br" value="{{ br }}" id="br">
-	    <p><input type="submit" value="Next" id="button"></p>
-	</form>  
-</ul>
+
+
+<form action=/getTest/ method="post" style="margin-top: 200px;">
+	<input type="hidden" name="tests" value="{{ tests }}" id="tests">
+   	<input type="hidden" name="br" value="{{ br }}" id="br">
+    <input type="hidden" name="results" value="{{ results }}" id="results">
+    <input type="hidden" name="wrongs" value="{{ wrongs }}" id="index">
+    <label for="question"> Question:</label><input type="text"  name="question"  id="question" value="{{ questions }}" readonly="True" />
+    
+
+    
+    <div style='margin-top: 50px;'>
+        {% for i in answers %}
+        <input type="text" name="checkbox" id="checkbox_id{{ i }}" value="{{ i }}" readonly="True">
+        <p>{{forloop.counter}}.answer</p>
+        {% endfor %}
+        <input type="text" name="answer_right" id="answer_right">
+        <p>Right answer</p>
+    </div>
+
+    
+    <input type="checkbox" name="checkbox" id="checkbox_id2" value="shit">
+    <p><input type="submit" value="Next" id="button" style="margin-top: 100px;"></p>
+</form>  
+	
+		
+
 
 
 

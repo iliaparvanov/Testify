@@ -1,0 +1,25 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+<!--TODO: FIX ALL LINKS/STATIC FILES-->
+<nav id="nav">
+  <ul>
+    <li><a href="/#intro">Introduction</a></li>
+    <li><a href="/#first">Creating tests</a></li>
+    <li><a href="/#second">Solving tests</a></li>
+    <li><a href="/#cta">Get Started</a></li>
+  </ul>
+  
+</nav>
+<div style='margin-left: 250px; margin-top: 300px; font-size: 50px'>
+	{% if results == 1 %}
+    	<h3>All of your answers are wrong<h3>
+    {% else %}
+    	<h3>Congratulations, you got {{ results }} of {{ max }}!<h3>
+	{% endif %}
+   
+
+</div>
+
+
+{% endblock %}

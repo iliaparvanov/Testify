@@ -4,101 +4,6 @@ from .forms import *
 from .models import *
 from . import *
 
-class InvalidNodeError(Exception):
-	def __init__(self):
-		super().__init__('Attempting to enqueue a None value to the queue is forbidden.')
-
-class Queue:
-	def __init__(self):
-		self.head = self.tail = None
-		self.size = 0
-		
-	class Node:
-		def __init__(self, value):
-			self.value = value
-			self.prev = None
-			
-	def enqueue(self, value):
-
-		new_node = Queue.Node(value)
-		
-		if self.is_empty():
-			self.head = self.tail = new_node
-		else:
-			self.tail.prev = new_node
-			self.tail = new_node
-			
-		self.size += 1
-		
-	def dequeue(self):
-		dequeued_value = None
-		
-		if self.is_empty():
-			dequeued_value = None
-		elif self.size == 1:
-			dequeued_value = self.head.value
-			self.head = self.head.prev
-			self.tail = None
-		else:
-			dequeued_value = self.head.value
-			self.head = self.head.prev
-			
-			
-		self.size = (self.size - 1) if self.size > 0 else 0
-		
-		return dequeued_value
-		
-	def peek(self):
-		if self.is_empty():
-			return None
-		else:
-			return self.head.value
-		
-	def clear(self):
-		self.head = self.tail = None
-		self.size = 0
-		
-	def __iter__(self):
-		return Queue.Iterator(self)
-		
-	class Iterator:
-		def __init__(self, queue):
-			self.queue = queue
-			
-		def __next__(self):
-			dequeued_value = self.queue.dequeue()
-			if dequeued_value == None:
-				raise StopIteration
-			else:
-				return dequeued_value
-		
-	def __len__(self):
-		return self.size
-		
-	def is_empty(self):
-		return self.head == None and self.tail == None
-			
-def print_queue(q):
-	current = q.head
-	if current == None:
-		return
-		
-	while current != None:
-		print(current.value)
-		current = current.prev
-
-def print_info(msg, q):
-	print(msg)
-	print('queue size: {}'.format(len(q)))
-	print_queue(q)
-	print()
-
-def dequeue_q(q):
-	for value in q:
-		print('dequeued: {}'.format(value))
-
-
-
 
 class QueryExceptionError(Exception):
 	def __init__(self):
@@ -113,11 +18,40 @@ def solve(request):
 def create(request):
 	return render(request, 'tests/create.html')
 
-def testChoose(request):
-	names = [test.name for test in Test.objects.all().filter(subject="Scripting")]
+def testChooseMath(request):
+	names = [test.name for test in Test.objects.all().filter(subject="Math")]
 	br = 1
-	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br})
+	results = 1
+	wrongs = list()
+	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
 
+def testChooseHistory(request):
+	names = [test.name for test in Test.objects.all().filter(subject="History")]
+	br = 1
+	results = 1
+	wrongs = list()
+	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
+
+def testChooseGeography(request):
+	names = [test.name for test in Test.objects.all().filter(subject="Geography")]
+	br = 1
+	results = 1
+	wrongs = list()
+	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
+
+def testChooseBiology(request):
+	names = [test.name for test in Test.objects.all().filter(subject="Biology")]
+	br = 1
+	results = 1
+	wrongs = list()
+	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
+
+def testChooseEnglish(request):
+	names = [test.name for test in Test.objects.all().filter(subject="English")]
+	br = 1
+	results = 1
+	wrongs = list()
+	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
 
 def addTest(request):
     if request.method == 'POST':
@@ -158,20 +92,31 @@ def addQuestions(request):
 		
 
 def getTest(request):
-	tail = Queue()
 	if request.method == 'POST':
 
-		answer = request.POST.get('tests', '')
-		test = Test.objects.get(name=answer)
+		name = request.POST.get('tests', '')
+		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
 		br = request.POST.get('br', '')
 		br = int(br)
 		br -= 1
+		results = request.POST.get('results', '')
+		results = int(results)
+		wrongs = request.POST.getlist('wrongs', '')
 
 
+		
 		if br < len(questions):
-
-			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : answer, 'br' : (br + 2)})
+			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
+			
+			if br > 0:	
+				if str(request.POST.get('answer_right', '')) == str(questions[br - 1].answer_r):
+					results += 1
+				else:
+					wrongs.append(br)
+					
+			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : (br + 2), 'answers' : answers, 'results' : results})
 		else:
-			return HttpResponse("Done")
+
+			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs})
 	

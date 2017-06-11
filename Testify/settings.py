@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_jinja',
     'tests',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +55,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'Testify.urls'
 
 TEMPLATES = [
+
     
    
 
@@ -70,7 +73,10 @@ TEMPLATES = [
            ],
         },
     },
+
+    
 ]
+
 
 WSGI_APPLICATION = 'Testify.wsgi.application'
 
