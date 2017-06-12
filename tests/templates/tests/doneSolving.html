@@ -5,18 +5,24 @@
 <nav id="nav">
   <ul>
     <li><a href="/#intro">Introduction</a></li>
-    <li><a href="/#first">Creating tests</a></li>
-    <li><a href="/#second">Solving tests</a></li>
-    <li><a href="/#cta">Get Started</a></li>
+    <li><a href="/create">Creating tests</a></li>
+    <li><a href="/solve">Solving tests</a></li>
+    
+
   </ul>
   
 </nav>
 <div style='margin-left: 250px; margin-top: 300px; font-size: 50px'>
-	{% if results == 1 %}
-    	<h3>All of your answers are wrong<h3>
+    {% if all_wrong %}
+        <h3>Congratulations, you got 0 of {{ max }}!<h3>
     {% else %}
-    	<h3>Congratulations, you got {{ results }} of {{ max }}!<h3>
-	{% endif %}
+        <h3>Congratulations, you got {{ results }} of {{ max }}!<h3>
+    {% endif %}
+    <h3>Wrong answers:</h3>
+    {% for i in wrongs %}
+    {{ i }}
+    {% endfor %}
+
    
 
 </div>

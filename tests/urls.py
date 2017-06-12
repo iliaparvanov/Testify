@@ -8,10 +8,11 @@ urlpatterns = [
     url(r'^solve/', views.solve, name='solve'),
     url(r'^add/', views.addTest, name='addTest'),
     url(r'^add_q/', views.addQuestions, name='add_q'),
-    url(r'^getTest/', views.getTest, name='getTest'), 
+    url(r'^getTest/', views.getTest, name='getTest'),
+    url(r'^solveTest/', views.solveTest, name='solveTest'),  
 	url(r'^testChooseMath/$', views.testChooseMath, name='testChooseMath'),
     url(r'^testChooseEnglish/$', views.testChooseEnglish, name='testChooseEnglish'),
     url(r'^testChooseGeography/$', views.testChooseGeography, name='testChooseGeography'),
     url(r'^testChooseHistory/$', views.testChooseHistory, name='testChooseHistory'),
-    url(r'^testChooseBilogy/$', views.testChooseBiology, name='testChooseBilogy'),
+    url(r'^testChooseBiology/$', views.testChooseBiology, name='testChooseBilogy'),
 ]

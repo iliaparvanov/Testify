@@ -20,38 +20,23 @@ def create(request):
 
 def testChooseMath(request):
 	names = [test.name for test in Test.objects.all().filter(subject="Math")]
-	br = 1
-	results = 1
-	wrongs = list()
-	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
+	return render(request, 'tests/testChoose.html', {'names' : names})
 
 def testChooseHistory(request):
 	names = [test.name for test in Test.objects.all().filter(subject="History")]
-	br = 1
-	results = 1
-	wrongs = list()
-	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
+	return render(request, 'tests/testChoose.html', {'names' : names})
 
 def testChooseGeography(request):
 	names = [test.name for test in Test.objects.all().filter(subject="Geography")]
-	br = 1
-	results = 1
-	wrongs = list()
-	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
+	return render(request, 'tests/testChoose.html', {'names' : names})
 
 def testChooseBiology(request):
 	names = [test.name for test in Test.objects.all().filter(subject="Biology")]
-	br = 1
-	results = 1
-	wrongs = list()
-	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
+	return render(request, 'tests/testChoose.html', {'names' : names})
 
 def testChooseEnglish(request):
 	names = [test.name for test in Test.objects.all().filter(subject="English")]
-	br = 1
-	results = 1
-	wrongs = list()
-	return render(request, 'tests/testChoose.html', {'names' : names, 'br' : br, 'results' : results, 'wrongs' : wrongs})
+	return render(request, 'tests/testChoose.html', {'names' : names})
 
 def addTest(request):
     if request.method == 'POST':
@@ -97,26 +82,48 @@ def getTest(request):
 		name = request.POST.get('tests', '')
 		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
+		br = 0
+		results = 0
+		all_wrong = 1
+		wrongs = list()
+		answers = Answers.objects.filter(question=questions[br]).order_by('pk')
+			
+		
+		return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'wrongs' : wrongs, 'results' : results, 'all_wrong' : all_wrong})
+
+			
+
+
+def solveTest(request):
+	if request.method == 'POST':
+		name = request.POST.get('tests', '')
+		test = Test.objects.get(name=name)
+		questions = Questions.objects.filter(name=test)
+		wrongs = request.POST.getlist('wrongs', '')
 		br = request.POST.get('br', '')
 		br = int(br)
-		br -= 1
 		results = request.POST.get('results', '')
 		results = int(results)
-		wrongs = request.POST.getlist('wrongs', '')
-
-
+		all_wrong = request.POST.get('all_wrong', '')
+		all_wrong = int(all_wrong)
 		
+		
+
 		if br < len(questions):
 			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
-			
-			if br > 0:	
-				if str(request.POST.get('answer_right', '')) == str(questions[br - 1].answer_r):
-					results += 1
-				else:
-					wrongs.append(br)
-					
-			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : (br + 2), 'answers' : answers, 'results' : results})
-		else:
 
-			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs})
-	
+			if str(request.POST.get('answer_right', '')) == str(questions[br].answer_r):
+					results += 1
+					all_wrong = 0
+
+			else:
+				wrongs.append(br)
+
+			if br == 0:
+				br += 1
+			
+			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong})
+			
+		else:
+			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
+		

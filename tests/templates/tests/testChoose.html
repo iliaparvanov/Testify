@@ -22,12 +22,9 @@ function normalImg(x) {
   
 </nav>
 <form action='/getTest/' method="post" style="margin-top: 200px;">
-    <input type="hidden" name="br" value="{{ br }}" id="br">
-    <input type="hidden" name="results" value="{{ results }}" id="results">
-    <input type="hidden" name="wrongs" value="{{ wrongs }}}" id="index">
-    <select name='tests' id='tests' value='tests'>
+    <select name='tests' id='tests' value='tests' >
         {% for i in names %}
-        <option type='checkbox' name="test"  id="test" value='{{ i }}' />{{ i }}
+        <option type='text' name="test"  id="test" value='{{ i }}'/>{{ i }}
         {% endfor %}
 
     </select>
