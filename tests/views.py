@@ -4,6 +4,8 @@ from .forms import *
 from .models import *
 from . import *
 
+
+
 class QueryExceptionError(Exception):
 	def __init__(self):
 		super().__init__("No such object")
@@ -44,19 +46,12 @@ def addTest(request):
         	alert = "Name already taken!"
         	return render(request, 'tests/create.html', {"alert" : alert})
         subject = request.POST.get('subject', '')
-        if not subject:
-        	alert = "Field for subject empty. Please specify your subject"
-        	return render(request, 'tests/create.html', {"alert" : alert})
+        l = ["Math", "History", "Biology", "English", "Geography"]
         q_num = request.POST.get('q_num', '')
-
-        if not q_num:
-        	alert = "Field for questions number empty. Please specify the number of questions"
-        	return render(request, 'tests/create.html', {"alert" : alert})
         a_num = request.POST.get('a_num', '')
-        if not a_num:
-        	alert = "Field for answers number empty. Please specify the number of answers"
-        	return render(request, 'tests/create.html', {"alert" : alert})
-
+        if not q_num or not a_num or not subject or not name:
+        	alert = "One or more fields is empty or inccorect"
+        	return render(request, 'tests/create.html', {"names" : name, "alert" : alert})
         l = list(range(int(a_num)))
         test = Test(name=name, subject=subject, a_num=a_num, q_num=q_num)
         test.save()
@@ -71,7 +66,7 @@ def addQuestions(request):
 		q_num = int(q_num)
 		a_num = request.POST.get('a_num', '')
 		a_num = list(range(int(len(a_num)/3)))
-		if not q_num or a_num:
+		if not q_num or not a_num:
 			alert = "One or more fields are empty"
 			return render(request, 'tests/add.html', {'name' : request.POST.get('name', ''), 'q_num' : q_num, 'a_num' : a_num, "alert" : alert})
 
@@ -150,5 +145,5 @@ def solveTest(request):
 			
 		else:
 
-			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
+			return render(request, 'tests/doneSolving.html', {'results' : results + 1, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
 		
