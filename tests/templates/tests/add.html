@@ -13,7 +13,7 @@
 <ul style='margin-top: 200px;'>
 
     <form action=/add_q/ method="post" accept-charset="utf-8">
-        
+        <p style="color: red; font-size: 30px">{{ alert }}</p>
         <label for="question">Question:</label><input type="text" name="question"  id="question">
         {% for c in a_num %}
         <label for="answer">Answer{{ forloop.counter }}:</label><input type="text" name="answer"  id="answer" > 

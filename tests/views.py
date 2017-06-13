@@ -4,7 +4,6 @@ from .forms import *
 from .models import *
 from . import *
 
-
 class QueryExceptionError(Exception):
 	def __init__(self):
 		super().__init__("No such object")
@@ -45,8 +44,19 @@ def addTest(request):
         	alert = "Name already taken!"
         	return render(request, 'tests/create.html', {"alert" : alert})
         subject = request.POST.get('subject', '')
+        if not subject:
+        	alert = "Field for subject empty. Please specify your subject"
+        	return render(request, 'tests/create.html', {"alert" : alert})
         q_num = request.POST.get('q_num', '')
+
+        if not q_num:
+        	alert = "Field for questions number empty. Please specify the number of questions"
+        	return render(request, 'tests/create.html', {"alert" : alert})
         a_num = request.POST.get('a_num', '')
+        if not a_num:
+        	alert = "Field for answers number empty. Please specify the number of answers"
+        	return render(request, 'tests/create.html', {"alert" : alert})
+
         l = list(range(int(a_num)))
         test = Test(name=name, subject=subject, a_num=a_num, q_num=q_num)
         test.save()
@@ -61,6 +71,9 @@ def addQuestions(request):
 		q_num = int(q_num)
 		a_num = request.POST.get('a_num', '')
 		a_num = list(range(int(len(a_num)/3)))
+		if not q_num or a_num:
+			alert = "One or more fields are empty"
+			return render(request, 'tests/add.html', {'name' : request.POST.get('name', ''), 'q_num' : q_num, 'a_num' : a_num, "alert" : alert})
 
 		if int(answer_r) > len(a_num) or int(answer_r) < 1:
 			return HttpResponse("Right answer invalid")
@@ -116,7 +129,12 @@ def solveTest(request):
 
 		if br < len(questions):
 			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
-			
+			if not str(request.POST.get('answer_right', '')):
+				alert = "Field for right answer empty"
+				if br == 0:
+					return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
+				else:
+					return render(request, 'tests/testSolving.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
 			if str(request.POST.get('answer_right', '')) == str(questions[br].answer_r):
 					results += 1
 					all_wrong = 0
