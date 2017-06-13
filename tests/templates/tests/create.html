@@ -13,7 +13,8 @@
 <ul style='margin-top: 200px;'>
 
     <form action=/add/ method="post" accept-charset="utf-8">
-        <label for="name"> Name:</label><input type="text" name="name"  id="name" />
+        <label for="name"> Name:</label><input type="text" name="name"  id="name" /><p style='font-size: 30px; color: red;'>{{ alert }}</p>
+        
         <label for="subject"> Subject:</label><input type="text" name="subject"  id="subject" />
         <label for="q_num"> Number of questions:</label><input type="text" name="q_num"  id="q_num"/>
         <label for="a_num"> Number of answers:</label><input type="text" name="a_num"  id="a_num"/>

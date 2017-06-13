@@ -14,13 +14,13 @@
 </nav>
 <div style='margin-left: 250px; margin-top: 300px; font-size: 50px'>
     {% if all_wrong %}
-        <h3>Congratulations, you got 0 of {{ max }}!<h3>
+        <h3>You got 0 of {{ max }}!<h3> {{ wrongs }}
     {% else %}
         <h3>Congratulations, you got {{ results }} of {{ max }}!<h3>
     {% endif %}
-    <h3>Wrong answers:</h3>
+    <p>Wrong answers:</p>
     {% for i in wrongs %}
-    {{ i }}
+    <p>{{ i }}</p><br>
     {% endfor %}
 
    

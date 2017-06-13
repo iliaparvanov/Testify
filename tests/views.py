@@ -41,6 +41,9 @@ def testChooseEnglish(request):
 def addTest(request):
     if request.method == 'POST':
         name = request.POST.get('name', '')
+        if Test.objects.filter(name=name):
+        	alert = "Name already taken!"
+        	return render(request, 'tests/create.html', {"alert" : alert})
         subject = request.POST.get('subject', '')
         q_num = request.POST.get('q_num', '')
         a_num = request.POST.get('a_num', '')
@@ -80,6 +83,8 @@ def getTest(request):
 	if request.method == 'POST':
 
 		name = request.POST.get('tests', '')
+
+		
 		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
 		br = 0
@@ -111,7 +116,7 @@ def solveTest(request):
 
 		if br < len(questions):
 			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
-
+			
 			if str(request.POST.get('answer_right', '')) == str(questions[br].answer_r):
 					results += 1
 					all_wrong = 0
@@ -119,11 +124,13 @@ def solveTest(request):
 			else:
 				wrongs.append(br)
 
+
 			if br == 0:
 				br += 1
 			
-			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong})
+			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs})
 			
 		else:
+
 			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
 		

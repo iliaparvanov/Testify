@@ -23,13 +23,17 @@ function normalImg(x) {
 </nav>
 <form action='/getTest/' method="post" style="margin-top: 200px;">
     <select name='tests' id='tests' value='tests' >
-        {% for i in names %}
-        <option type='text' name="test"  id="test" value='{{ i }}'/>{{ i }}
-        {% endfor %}
-
+        {% if names %}
+            {% for i in names %}
+            <option type='text' name="test"  id="test" value='{{ i }}' style="color: black" />{{ i }}
+            {% endfor %}
+        {% else %}
+            <option type='text' name='alert' id='alert'  style="color: black" >No tests to show
+        {% endif  %}
     </select>
-    
-    <p><input type="submit" value="Solve" id="Solve"></p>
+    {% if names %}
+        <p><input type="submit" value="Solve" id="Solve"></p>
+    {% endif %}
 </form>
 
 
