@@ -4,11 +4,18 @@
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
 <nav id="nav">
   <ul>
-    <li><a href="/#intro">Introduction</a></li>
+    {% if not user.is_authenticated %}
+    <li><a href="/">Introduction</a></li>
+    <li><a href="/login">Log in</a><li>
+    <li><a href="">Sign up</a></li
+    {% else %}
+    <li><a href="/">Introduction</a></li>
+    <li><a href="/logout">Log out</a></li>
     <li><a href="/create">Creating tests</a></li>
     <li><a href="/solve">Solving tests</a></li>
+    {% endif %}
   </ul>
-  
+
 </nav>
 
 
@@ -24,9 +31,9 @@
     <input type="hidden" name="wrongs" value="{{ wrongs }}" id="wrongs">
     <input type="hidden" name="all_wrong" value="{{ all_wrong }}" id="all_wrong">
     <label for="question"> Question:</label><input type="text"  name="question"  id="question" value="{{ questions }}" readonly="True" />
-    
 
-    
+
+
     <div style='margin-top: 50px;'>
         {% for i in answers %}
         <input type="text" name="checkbox" id="checkbox_id{{ i }}" value="{{ i }}" readonly="True">
@@ -36,12 +43,12 @@
         <p>Right answer</p>
     </div>
 
-    
+
     <input type="checkbox" name="checkbox" id="checkbox_id2" value="shit">
     <p><input type="submit" value="Next" id="button" style="margin-top: 100px;"></p>
-</form>  
-	
-		
+</form>
+
+
 
 
 

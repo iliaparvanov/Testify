@@ -4,13 +4,20 @@
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
 <nav id="nav">
   <ul>
-    <li><a href="/#intro">Introduction</a></li>
+    {% if not user.is_authenticated %}
+    <li><a href="/">Introduction</a></li>
+    <li><a href="/login">Log in</a><li>
+    <li><a href="">Sign up</a></li
+    {% else %}
+    <li><a href="/">Introduction</a></li>
+    <li><a href="/logout">Log out</a></li>
     <li><a href="/create">Creating tests</a></li>
     <li><a href="/solve">Solving tests</a></li>
-    
+    {% endif %}
+
 
   </ul>
-  
+
 </nav>
 <div style='margin-left: 250px; margin-top: 300px; font-size: 50px'>
     {% if all_wrong %}
@@ -20,7 +27,7 @@
     {% endif %}
 
 
-   
+
 
 </div>
 

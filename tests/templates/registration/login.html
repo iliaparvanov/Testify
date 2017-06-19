@@ -1,25 +1,22 @@
 {% extends "tests/header.html" %}
 
 {% block content %}
-<!--TODO: FIX ALL LINKS/STATIC FILES-->
 <nav id="nav">
   <ul>
-    {% if not user.is_authenticated %}
     <li><a href="/">Introduction</a></li>
-    <li><a href="/login">Log in</a><li>
-    <li><a href="">Sign up</a></li
-    {% else %}
-    <li><a href="/">Introduction</a></li>
-    <li><a href="/logout">Log out</a></li>
-    <li><a href="/create">Creating tests</a></li>
-    <li><a href="/solve">Solving tests</a></li>
-    {% endif %}
+    <li><a href="">Sign up</a></li>
   </ul>
-
 </nav>
+
 <ul style='margin-top: 200px;'>
 
-    <form action=/add_q/ method="post" accept-charset="utf-8">
+    <form method="post" accept-charset="utf-8">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <p><input type="submit" value="Login"></p>
+    <p>Note: Password for superuser is: bashevaenomer1</p>
+
+<!--    <form action=/add_q/ method="post" accept-charset="utf-8">
         <p style="color: red; font-size: 30px">{{ alert }}</p>
         <label for="question">Question:</label><input type="text" name="question"  id="question">
         {% for c in a_num %}
@@ -31,9 +28,6 @@
         <label for="answer_r">Right answer:<input type="text" name="answer_r" id="answer_r">
         <p><input type="submit" value="Create" id="Create"></p>
     </form>
-
+-->
 </ul>
-
-
-
 {% endblock %}

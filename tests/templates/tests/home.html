@@ -4,9 +4,16 @@
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
 <nav id="nav">
   <ul>
-    <li><a href="#intro">Introduction</a></li>
+    {% if not user.is_authenticated %}
+    <li><a href="/">Introduction</a></li>
+    <li><a href="/login">Log in</a><li>
+    <li><a href="">Sign up</a></li
+    {% else %}
+    <li><a href="/">Introduction</a></li>
+    <li><a href="/logout">Log out</a></li>
     <li><a href="/create">Creating tests</a></li>
     <li><a href="/solve">Solving tests</a></li>
+    {% endif %}
 
   </ul>
 </nav>
@@ -58,7 +65,7 @@
       <header class="major">
         <h2>Solving tests</h2>
       </header>
-      
+
       <h3><p>When you want to solve test, first you choose the category from the ones below. You can choose from five different category of tests.</p></h3>
       <ul class="statistics">
         <li class="style1">
@@ -84,6 +91,6 @@
       </ul>
     </section>
 
-  
+
 </div>
 {% endblock %}

@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from .forms import *
 from .models import *
 from . import *
+from django.conf import settings
+
 
 
 
@@ -40,22 +42,22 @@ def testChooseEnglish(request):
 	return render(request, 'tests/testChoose.html', {'names' : names})
 
 def addTest(request):
-    if request.method == 'POST':
-        name = request.POST.get('name', '')
-        if Test.objects.filter(name=name):
-        	alert = "Name already taken!"
-        	return render(request, 'tests/create.html', {"alert" : alert})
-        subject = request.POST.get('subject', '')
-        l = ["Math", "History", "Biology", "English", "Geography"]
-        q_num = request.POST.get('q_num', '')
-        a_num = request.POST.get('a_num', '')
-        if not q_num or not a_num or not subject or not name:
-        	alert = "One or more fields is empty or inccorect"
-        	return render(request, 'tests/create.html', {"names" : name, "alert" : alert})
-        l = list(range(int(a_num)))
-        test = Test(name=name, subject=subject, a_num=a_num, q_num=q_num)
-        test.save()
-        return render(request, 'tests/add.html', {'name' : name, 'q_num' : q_num, 'a_num' : l})
+	if request.method == 'POST':
+		name = request.POST.get('name', '')
+		if Test.objects.filter(name=name):
+			alert = "Name already taken!"
+			return render(request, 'tests/create.html', {"alert" : alert})
+		subject = request.POST.get('subject', '')
+		l = ["Math", "History", "Biology", "English", "Geography"]
+		q_num = request.POST.get('q_num', '')
+		a_num = request.POST.get('a_num', '')
+		if not q_num or not a_num or not subject or not name:
+			alert = "One or more fields is empty or inccorect"
+			return render(request, 'tests/create.html', {"names" : name, "alert" : alert})
+		l = list(range(int(a_num)))
+		test = Test(name=name, subject=subject, a_num=a_num, q_num=q_num)
+		test.save()
+		return render(request, 'tests/add.html', {'name' : name, 'q_num' : q_num, 'a_num' : l})
 
 def addQuestions(request):
 	if request.method == 'POST':
@@ -74,8 +76,8 @@ def addQuestions(request):
 			return HttpResponse("Right answer invalid")
 		question_o = Questions(name=test, question=question, answer_r=answer_r)
 		question_o.save()
-		
-		
+
+
 		answers = request.POST.getlist('answer', '')
 		for a in answers:
 			a = Answers(question=question_o, answer=a)
@@ -85,14 +87,14 @@ def addQuestions(request):
 			return render(request, 'tests/add.html', {'q_num' : q_num - 1, 'name' : request.POST.get('name', ''), 'a_num' : a_num})
 		else:
 			return render(request, 'tests/done.html')
-		
+
 
 def getTest(request):
 	if request.method == 'POST':
 
 		name = request.POST.get('tests', '')
 
-		
+
 		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
 		br = 0
@@ -100,11 +102,11 @@ def getTest(request):
 		all_wrong = 1
 		wrongs = list()
 		answers = Answers.objects.filter(question=questions[br]).order_by('pk')
-			
-		
+
+
 		return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'wrongs' : wrongs, 'results' : results, 'all_wrong' : all_wrong})
 
-			
+
 
 
 def solveTest(request):
@@ -119,8 +121,8 @@ def solveTest(request):
 		results = int(results)
 		all_wrong = request.POST.get('all_wrong', '')
 		all_wrong = int(all_wrong)
-		
-		
+
+
 
 		if br < len(questions):
 			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
@@ -140,10 +142,9 @@ def solveTest(request):
 
 			if br == 0:
 				br += 1
-			
+
 			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs})
-			
+
 		else:
 
 			return render(request, 'tests/doneSolving.html', {'results' : results + 1, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
-		
