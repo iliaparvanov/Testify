@@ -35,18 +35,18 @@
 
 
 
-    <div style='margin-top: 50px;'>
+    <div style='margin-top: 20px;'>
         {% for i in answers %}
+        <label style="margin-top: 20px;" for="checkbox_id{{ i }}">Answer {{ forloop.counter }}</label>
         <input type="text" name="checkbox" id="checkbox_id{{ i }}" value="{{ i }}" readonly="True">
-        <p>{{forloop.counter}}.answer</p>
         {% endfor %}
+        <label style="margin-top: 20px;" for="answer_right">Right answer</label>
         <input type="text" name="answer_right" id="answer_right">
-        <p>Right answer</p>
     </div>
 
 
     <input type="checkbox" name="checkbox" id="checkbox_id2" value="shit">
-    <p><input type="submit" value="Next" id="button" style="margin-top: 100px;"></p>
+    <input style="margin-top: 20px;" type="submit" value="Next" id="button" style="margin-top: 100px;">
 </form>
 
 
