@@ -4,7 +4,8 @@ from .forms import *
 from .models import *
 from . import *
 from django.conf import settings
-
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, authenticate
 
 
 
@@ -14,6 +15,21 @@ class QueryExceptionError(Exception):
 
 def index(request):
     return render(request, 'tests/home.html')
+
+def signup(request):
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			raw_password = form.cleaned_data.get('password1')
+			user = authenticate(username=username, password=raw_password)
+			login(request, user)
+			return redirect('/')
+	else:
+		form = UserCreationForm()
+	return render(request, 'registration/signup.html', {'form': form})
+
 
 def solve(request):
 	return render(request, 'tests/solve.html')
