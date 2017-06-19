@@ -22,15 +22,15 @@
 
     <form action=/add_q/ method="post" accept-charset="utf-8">
         <p style="color: red; font-size: 30px">{{ alert }}</p>
-        <label for="question">Question:</label><input type="text" name="question"  id="question">
+        <label style="margin-top: 20px;" for="question">Question:</label><input type="text" name="question"  id="question">
         {% for c in a_num %}
-        <label for="answer">Answer{{ forloop.counter }}:</label><input type="text" name="answer"  id="answer" > <!-- forloop counter is the current iteration of the loop-->
+        <label style="margin-top: 20px;" for="answer">Answer {{ forloop.counter }}:</label><input type="text" name="answer"  id="answer" > <!-- forloop counter is the current iteration of the loop-->
         {% endfor %}
-        <label for="name"><input type="hidden" name="name" value="{{ name }}" id="name">
-        <label for="q_num"><input type="hidden" name="q_num" value="{{ q_num }}" id="q_num">
-        <label for="a_num"><input type="hidden" name="a_num" value="{{ a_num }}" id="a_num">
-        <label for="answer_r">Right answer:<input type="text" name="answer_r" id="answer_r">
-        <p><input type="submit" value="Create" id="Create"></p>
+        <label style="margin-top: 20px;" for="name"><input type="hidden" name="name" value="{{ name }}" id="name">
+        <label style="margin-top: 20px;" for="q_num"><input type="hidden" name="q_num" value="{{ q_num }}" id="q_num">
+        <label style="margin-top: 20px;" for="a_num"><input type="hidden" name="a_num" value="{{ a_num }}" id="a_num">
+        <label style="margin-top: 20px;" for="answer_r">Right answer:<input type="text" name="answer_r" id="answer_r">
+        <p style="margin-top: 20px;"><input type="submit" value="Create" id="Create"></p>
     </form>
 
 </ul>

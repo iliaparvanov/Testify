@@ -20,15 +20,15 @@
 </nav>
 <ul style='margin-top: 200px;'>
     {% if not user.is_authenticated %}
-    <p style="font-size: 18px">Note: You are currently not logged in and your test will not be saved!</p>
+    <p style="font-size: 18px;">Note: You are currently not logged in and your test will not be saved!</p>
     {% endif %}
     <form action=/add/ method="post" accept-charset="utf-8"> <!-- action is the url the form data is returned to-->
     	<p style='font-size: 30px; color: red;'>{{ alert }}</p>
-        <label for="name"> Name:</label><input type="text" name="name"  id="name" autocomplete="off" /> <!-- label's for is equal to input's id and binds them together; label is literally that - a label fo the input-->
-        <label for="subject"> Subject:</label><input type="text" name="subject"  id="subject" />
-        <label for="q_num"> Number of questions:</label><input type="text" name="q_num"  id="q_num"/>
-        <label for="a_num"> Number of answers:</label><input type="text" name="a_num"  id="a_num"/>
-        <p><input type="submit" value="Create" id="Create"></p>
+        <label style="margin-top: 20px;" for="name"> Name:</label><input type="text" name="name"  id="name" autocomplete="off" /> <!-- label's for is equal to input's id and binds them together; label is literally that - a label fo the input-->
+        <label style="margin-top: 20px;" for="subject"> Subject:</label><input type="text" name="subject"  id="subject" />
+        <label style="margin-top: 20px;" for="q_num"> Number of questions:</label><input type="text" name="q_num"  id="q_num"/>
+        <label style="margin-top: 20px;" for="a_num"> Number of answers:</label><input type="text" name="a_num"  id="a_num"/>
+        <p style="margin-top: 20px;"><input type="submit" value="Create" id="Create"></p>
     </form>
 </ul>
 
