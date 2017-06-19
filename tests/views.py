@@ -102,8 +102,12 @@ def addQuestions(request):
 		if q_num > 1:
 			return render(request, 'tests/add.html', {'q_num' : q_num - 1, 'name' : request.POST.get('name', ''), 'a_num' : a_num})
 		else:
-			return render(request, 'tests/done.html')
-
+			if not request.user.is_authenticated:
+				Test.objects.filter(name=request.POST.get('name', '')).delete()
+				message = "Your test was created, but was not saved. If you'd like to save a test, please log in"
+			else:
+				message = "Test successfully created!"
+			return render(request, 'tests/done.html', {"message" : message})
 
 def getTest(request):
 	if request.method == 'POST':

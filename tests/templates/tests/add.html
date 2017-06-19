@@ -7,7 +7,8 @@
     {% if not user.is_authenticated %}
     <li><a href="/">Introduction</a></li>
     <li><a href="/login">Log in</a><li>
-    <li><a href="">Sign up</a></li
+    <li><a href="/signup">Sign up</a></li>
+    <li><a href="/create">Demo</a><li>
     {% else %}
     <li><a href="/">Introduction</a></li>
     <li><a href="/logout">Log out</a></li>
@@ -23,7 +24,7 @@
         <p style="color: red; font-size: 30px">{{ alert }}</p>
         <label for="question">Question:</label><input type="text" name="question"  id="question">
         {% for c in a_num %}
-        <label for="answer">Answer{{ forloop.counter }}:</label><input type="text" name="answer"  id="answer" >
+        <label for="answer">Answer{{ forloop.counter }}:</label><input type="text" name="answer"  id="answer" > <!-- forloop counter is the current iteration of the loop-->
         {% endfor %}
         <label for="name"><input type="hidden" name="name" value="{{ name }}" id="name">
         <label for="q_num"><input type="hidden" name="q_num" value="{{ q_num }}" id="q_num">
