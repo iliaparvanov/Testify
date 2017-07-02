@@ -32,30 +32,25 @@ def signup(request):
 
 
 def solve(request):
-	return render(request, 'tests/solve.html')
+	test = Test.objects.all()
+	l = list()
+	l2 = list(range(int(len(test))))
+
+	for i in l2:
+		try:
+			l.append(test[i].subject)
+		except Exception:
+			return HttpResponse("Wrong input")
+	return render(request, 'tests/solve.html', {'subjects' : l})
 
 def create(request):
 	return render(request, 'tests/create.html')
 
-def testChooseMath(request):
-	names = [test.name for test in Test.objects.all().filter(subject="Math")]
+def testChoose(request):
+	subjects = request.POST.get('tests', '')
+	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
 	return render(request, 'tests/testChoose.html', {'names' : names})
 
-def testChooseHistory(request):
-	names = [test.name for test in Test.objects.all().filter(subject="History")]
-	return render(request, 'tests/testChoose.html', {'names' : names})
-
-def testChooseGeography(request):
-	names = [test.name for test in Test.objects.all().filter(subject="Geography")]
-	return render(request, 'tests/testChoose.html', {'names' : names})
-
-def testChooseBiology(request):
-	names = [test.name for test in Test.objects.all().filter(subject="Biology")]
-	return render(request, 'tests/testChoose.html', {'names' : names})
-
-def testChooseEnglish(request):
-	names = [test.name for test in Test.objects.all().filter(subject="English")]
-	return render(request, 'tests/testChoose.html', {'names' : names})
 
 def addTest(request):
 	if request.method == 'POST':
@@ -88,7 +83,7 @@ def addQuestions(request):
 			alert = "One or more fields are empty"
 			return render(request, 'tests/add.html', {'name' : request.POST.get('name', ''), 'q_num' : q_num, 'a_num' : a_num, "alert" : alert})
 
-		if int(answer_r) > len(a_num) or int(answer_r) < 1:
+		if int(answer_r) > int(len(a_num)) or int(answer_r) < 1:
 			return HttpResponse("Right answer invalid")
 		question_o = Questions(name=test, question=question, answer_r=answer_r)
 		question_o.save()
@@ -111,10 +106,7 @@ def addQuestions(request):
 
 def getTest(request):
 	if request.method == 'POST':
-
 		name = request.POST.get('tests', '')
-
-
 		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
 		br = 0
