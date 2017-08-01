@@ -1,20 +1,20 @@
-from django import forms
-from tests.models import *
+# from django import forms
+# from tests.models import *
 
-class TestForm(forms.ModelForm):
-     class Meta:
-        model=Test
-        fields= ['name', 'subject', 'q_num', 'a_num']
+# class TestForm(forms.ModelForm):
+#      class Meta:
+#         model=Test
+#         fields= ['name', 'subject', 'q_num', 'a_num']
 
-class QuestionForm(forms.ModelForm):
-     class Meta:
-        model=Questions
-        fields= ['name', 'question']
+# class QuestionForm(forms.ModelForm):
+#      class Meta:
+#         model=Questions
+#         fields= ['name', 'question']
 
-class AnswersForm(forms.ModelForm):
-     class Meta:
-        model=Answers
-        fields= ['question', 'answer']
+# class AnswersForm(forms.ModelForm):
+#      class Meta:
+#         model=Answers
+#         fields= ['question', 'answer']
 
 
 
