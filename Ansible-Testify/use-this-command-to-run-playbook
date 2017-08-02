@@ -1,0 +1,2 @@
+ansible-playbook -e 'host_key_checking=False' /home/go6o/Testify/Testify/Ansible-Testify/provisioning/playbook.yml
+

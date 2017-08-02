@@ -1,0 +1,77 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Create a started container
+      lxd_container:
+        name: mycontainer1
+        state: started
+        source:
+          type: image
+          mode: pull
+          protocol: lxd
+          alias: Base
+        profiles: ["default"]
+        wait_for_ipv4_addresses: true
+        timeout: 600
+      register: containers_info
+
+    - name: Wait for the network to be setup in the containers
+      when: containers_info|changed
+      pause: seconds=2
+
+    
+
+    # - name: Get containers info now that IPs are available
+    #   lxd_container:
+    #     name: mycontainer1
+    #   register: containers_info
+    
+    - name: ngiehgi
+      debug: var=containers_info
+    
+    - name: Register the hosts in the inventory
+      add_host:
+        name: "{{ containers_info.addresses.eth0[0] }}"
+        ansible_ssh_private_key_file: /home/go6o/.ssh/id_rsa_ansible 
+        ansible_ssh_common_args: "-o UserKnownHostsFile=/dev/null"
+
+
+- hosts: all
+  become: true
+  gather_facts: False
+  pre_tasks:
+    - name: install python
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+  tasks:
+    - name: check python is installed in container
+      raw: dpkg -s python
+      register: python_install_check
+      failed_when: python_install_check.rc not in [0, 1]
+      changed_when: false
+
+    - name: install python in container
+      raw: apt-get install -y python
+      when: python_install_check.rc == 1
+
+    - name: Install required packages
+      apt: name={{item}} state=present update_cache=yes
+      with_items:
+        - git
+        - python3
+        - python3-pip
+
+    - name: clone Testify
+      git: repo=https://github.com/iliapa1/Testify.git dest=/home/Testify clone=yes
+
+    - name: Install django   
+      pip: requirements=/home/Testify/requirements.txt executable=pip3    
+
+
+
+
+ 
+
+
+
