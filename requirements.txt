@@ -1,7 +1,5 @@
 
 Django==1.11.3
-python-debian==0.1.27
-python-xapp==1.0.0
 system-service==0.3
 ufw==0.35
 virtualenv==15.1.0
