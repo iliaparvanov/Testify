@@ -1,0 +1,3 @@
+---
+- name: clone Testify
+  git: repo=https://github.com/iliapa1/Testify.git dest=/home/Testify clone=yes
