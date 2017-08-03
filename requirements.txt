@@ -1,6 +1,5 @@
 
 Django==1.11.3
-python-apt==1.1.0b1
 python-debian==0.1.27
 python-xapp==1.0.0
 system-service==0.3
