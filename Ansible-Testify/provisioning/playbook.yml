@@ -55,7 +55,7 @@
       changed_when: false
 
     - name: install python in container
-      raw: apt-get install -y python
+      raw: apt-get install -y python && apt-get install software-properties-common && apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.netinch.com/pub/mariadb/repo/10.0/debian jessie main' && apt -y update
       when: python_install_check.rc == 1
 
     - name: Install required packages
