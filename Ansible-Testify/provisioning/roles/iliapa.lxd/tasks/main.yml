@@ -11,13 +11,14 @@
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
+# make one more 
   with_items:
      - mycontainer1
      - mycontainer2
   register: containers_info
 
-
-- name: Delete a container
+# because missing repository from git in first
+- name: Delete a contain
   lxd_container:
     name: mycontainer1
     state: absent
