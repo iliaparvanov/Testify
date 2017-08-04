@@ -13,6 +13,16 @@
     - iliapa.pkgs
     - iliapa.clone-rep
     - iliapa.pip-requirements
+  tasks:
+    - name: Rm anon user
+      mysql_user: name="" state=absent
+    - name: Rm test DB
+      mysql_db: name=test state=absent
+    - name: Create project DB
+      mysql_db: name=Testify state=present
+    - name: Create project DB user
+      mysql_user: name=Testifyuser host=localhost password=bananas priv=Testify.*:ALL
+
   
 
 
