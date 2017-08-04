@@ -7,6 +7,13 @@
   mysql_db: name=Testify state=present
 - name: Create project DB user
   mysql_user: name=Testifyuser host=localhost password=bananas priv=Testify.*:ALL
-- name: Make migrations in Django and run the server
-  raw: cd /home/Testify && python3 manage.py makemigrations && python3 manage.py migrate
-
+- name: Make executable
+  file:
+    path: /home/Testify/manage.py
+    mode: 0777
+- file: src=/usr/bin/python3 dest=/usr/bin/python state=link
+- name: Django migrate
+  django_manage: command=migrate && test
+                 app_path=/home/Testify
+  environment:
+    - PATH: "/home/user/.local/bin/:/bin:/usr/bin:/usr/local/bin"
