@@ -13,7 +13,8 @@
     mode: 0777
 - file: src=/usr/bin/python3 dest=/usr/bin/python state=link
 - name: Django migrate
-  django_manage: command=migrate && test
+  django_manage: command=migrate
                  app_path=/home/Testify
   environment:
     - PATH: "/home/user/.local/bin/:/bin:/usr/bin:/usr/local/bin"
+
