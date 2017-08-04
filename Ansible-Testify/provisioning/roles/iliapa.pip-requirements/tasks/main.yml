@@ -1,3 +1,5 @@
 ---
 - name: Install everything from requirements   
   pip: requirements=/home/Testify/requirements.txt executable=pip3  
+- name: Install the Pythoon MySQLDB module
+  pip: name=mysqlclient executable=pip3

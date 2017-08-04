@@ -12,4 +12,6 @@
     - mariadb-server
     - libmariadbclient-dev
     - libssl-dev
+    - python-mysqldb
+
 
