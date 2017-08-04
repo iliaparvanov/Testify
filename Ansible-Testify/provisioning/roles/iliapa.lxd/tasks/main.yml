@@ -18,7 +18,7 @@
   register: containers_info
 
 # because missing repository from git in first
-- name: Delete a contain
+- name: Fix a container
   lxd_container:
     name: mycontainer1
     state: absent
@@ -30,5 +30,5 @@
 - name: Register the hosts in the inventory
   add_host:
     name: "{{ containers_info.results[0-1].addresses.eth0[0] }}"
-    ansible_ssh_private_key_file: /home/.ssh/id_rsa_ansible 
+    ansible_ssh_private_key_file: /home/ilia/.ssh/id_rsa_ansible 
     ansible_ssh_common_args: "-o UserKnownHostsFile=/dev/null"

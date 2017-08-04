@@ -1,4 +1,17 @@
 ---
-- name: clone Testify
+#- name: clone Testify
 #  git: repo=https://github.com/iliapa1/Testify.git dest=/home/Testify clone=yes
-  raw: test -e /home/Testify || git clone https://github.com/iliapa1/Testify.git /home/Testify
+#  raw: test -e /home/Testify || git clone https://github.com/iliapa1/Testify.git /home/Testify
+
+- name: check if repo exists
+  stat: path=/home/Testify
+  register: repo_present
+
+- debug: var=repo_present
+
+- name: delete existing repo
+  file: path=/home/Testify state=absent
+  when: repo_present.stat.exists == true
+
+- name: clone Testify
+  git: repo=https://github.com/iliapa1/Testify.git dest=/home/Testify clone=yes
