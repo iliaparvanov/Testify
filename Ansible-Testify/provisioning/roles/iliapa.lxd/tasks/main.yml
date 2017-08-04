@@ -25,7 +25,7 @@
 
 - name: Wait for the network to be setup in the containers
   when: containers_info|changed
-  pause: seconds=2
+  pause: seconds=5
 
 - name: Register the hosts in the inventory
   add_host:

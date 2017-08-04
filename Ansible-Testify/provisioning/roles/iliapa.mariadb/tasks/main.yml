@@ -8,4 +8,5 @@
 - name: Create project DB user
   mysql_user: name=Testifyuser host=localhost password=bananas priv=Testify.*:ALL
 - name: Make migrations in Django and run the server
-  raw: cd /home/Testify && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver
+  raw: cd /home/Testify && python3 manage.py makemigrations && python3 manage.py migrate
+

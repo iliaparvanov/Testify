@@ -14,4 +14,10 @@
     - libssl-dev
     - python-mysqldb
 
+#- name: Add Heroku repo
+#  apt_repository: repo='deb https://cli-assets.heroku.com/branches/stable/#apt ./' state=present filename='heroku' update_cache='yes'
+#- name: Some Heroku-related bs
+#  raw: curl -L https://cli-assets.heroku.com/apt/release.key | sudo apt-key #add -
+#- name: Install Heroku
+#  apt: name=heroku yes=present update_cache=yes
 

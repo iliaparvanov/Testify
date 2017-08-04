@@ -1,3 +1,4 @@
 ---
 - name: clone Testify
-  git: repo=https://github.com/iliapa1/Testify.git dest=/home/Testify clone=yes
+#  git: repo=https://github.com/iliapa1/Testify.git dest=/home/Testify clone=yes
+  raw: test -e /home/Testify || git clone https://github.com/iliapa1/Testify.git /home/Testify
