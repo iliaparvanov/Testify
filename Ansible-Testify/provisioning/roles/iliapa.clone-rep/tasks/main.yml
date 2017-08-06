@@ -3,7 +3,7 @@
   stat: path=/home/Testify
   register: repo_present
 
-- debug: var=repo_present
+# - debug: var=repo_present
 
 - name: delete existing repo
   file: path=/home/Testify state=absent

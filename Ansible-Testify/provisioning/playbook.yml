@@ -3,7 +3,9 @@
   connection: local
   become: true
   roles:
+    - iliapa.image-download
     - iliapa.lxd
+
 
 - hosts: all
   become: true

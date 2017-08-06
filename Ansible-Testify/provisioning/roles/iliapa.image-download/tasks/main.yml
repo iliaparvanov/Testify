@@ -1,0 +1,17 @@
+---
+- name: Check if image exists
+  stat: path=/home/Image
+  register: image_present
+
+
+- name: make image folder
+  raw: cd /home && mkdir Image
+  when: image_present.stat.exists == false
+
+- name: Download image
+  raw: cd /home/Image && wget https://www.dropbox.com/s/h1ablyjfua7cam8/b73a1e0c1d7591e44c9e8fdd047eac8957ecfca197d33ef2af7db3cdb22eba1c.tar.gz?dl=1
+  when: image_present.stat.exists == false
+
+- name: import image
+  raw: cd /home/Image && lxc image import b73a1e0c1d7591e44c9e8fdd047eac8957ecfca197d33ef2af7db3cdb22eba1c.tar.gz?dl=1 --alias Base1 
+  when: image_present.stat.exists == true
