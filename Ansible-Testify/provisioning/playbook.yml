@@ -16,6 +16,7 @@
     - iliapa.clone-rep
     - iliapa.pip-requirements
     - iliapa.mariadb
+    - bearandgiraffe.heroku-cli
 
 
   
