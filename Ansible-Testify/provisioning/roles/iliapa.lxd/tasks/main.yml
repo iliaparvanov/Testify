@@ -19,12 +19,6 @@
      - mycontainer3
   register: containers_info
 
-# # because missing repository from git in first
-# - name: Fix a container
-#   lxd_container:
-#     name: mycontainer0
-#     state: absent
-
 - name: Wait for the network to be setup in the containers
   when: containers_info|changed
   pause: seconds=10

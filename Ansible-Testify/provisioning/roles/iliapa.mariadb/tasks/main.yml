@@ -4,9 +4,10 @@
 - name: Rm test DB
   mysql_db: name=test state=absent
 - name: Create project DB
-  mysql_db: name=Testify state=present
+  mysql_db: name="{{ database_name }}" state=present
 - name: Create project DB user
-  mysql_user: name=Testifyuser host=localhost password=bananas priv=Testify.*:ALL
+  mysql_user: name="{{ database_user }}" host=localhost password="{{ database_password }}" priv=Testify.*:ALL
+
 - name: Make executable
   file:
     path: /home/Testify/manage.py

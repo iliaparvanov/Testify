@@ -13,9 +13,13 @@
   roles:
     - iliapa.python2
     - iliapa.pkgs
-    - iliapa.clone-rep
+    - role: iliapa.clone-rep
+      git_repository: https://github.com/iliapa1/Testify.git
     - iliapa.pip-requirements
-    - iliapa.mariadb
+    - role: iliapa.mariadb
+      database_name: Testify
+      database_user: Testifyuser
+      database_password: bananas
     - bearandgiraffe.heroku-cli
 
 
