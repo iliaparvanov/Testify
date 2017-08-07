@@ -14,15 +14,3 @@
 - name: import image
   raw: cd /home/Image && lxc image import b73a1e0c1d7591e44c9e8fdd047eac8957ecfca197d33ef2af7db3cdb22eba1c.tar.gz?dl=1 --alias Base1 
   when: image_present.stat.exists == false
-
-- name: Check if ssh exists
-  stat: path=/home/ssh
-  register: ssh_present
-
-- name: make ssh folder
-  raw: cd /home && mkdir ssh
-  when: ssh_present.stat.exists == false
-
-- name: Download ssh key
-  raw: cd /home/ssh && wget https://www.dropbox.com/s/3n0nycvm7geqtyw/id_rsa_ansible?dl=1
-  when: ssh_present.stat.exists == false
