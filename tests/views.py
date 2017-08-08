@@ -38,19 +38,19 @@ def solve(request):
 
 	for i in l2:
 		try:
-			l.append(test[i].subject)
+			if test[i].subject not in l:
+				l.append(test[i].subject)
 		except Exception:
 			return HttpResponse("Wrong input")
 	return render(request, 'tests/solve.html', {'subjects' : l})
-
-def create(request):
-	return render(request, 'tests/create.html')
 
 def testChoose(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
 	return render(request, 'tests/testChoose.html', {'names' : names})
 
+def create(request):
+	return render(request, 'tests/create.html')
 
 def addTest(request):
 	if request.method == 'POST':
@@ -59,6 +59,11 @@ def addTest(request):
 			alert = "Name already taken!"
 			return render(request, 'tests/create.html', {"alert" : alert})
 		subject = request.POST.get('subject', '')
+		if Test.objects.filter(subject=subject):
+			alert = "Subject already exists! Are you sure you want to continue?"
+			q_num = request.POST.get('q_num', '')
+			a_num = request.POST.get('a_num', '')
+			return render(request, 'tests/create.html', {'name' : name, "alert" : alert, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
 		l = ["Math", "History", "Biology", "English", "Geography"]
 		q_num = request.POST.get('q_num', '')
 		a_num = request.POST.get('a_num', '')

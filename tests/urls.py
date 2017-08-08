@@ -15,6 +15,4 @@ urlpatterns = [
     url(r'^getTest/', views.getTest, name='getTest'),
     url(r'^solveTest/', views.solveTest, name='solveTest'),
 	url(r'^testChoose/$', views.testChoose, name='testChoose'),
-    
-
 ]
