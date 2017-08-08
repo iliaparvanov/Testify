@@ -4,6 +4,7 @@
   become: true
   roles:
     - iliapa.image-download
+    - iliapa.ssh
     - iliapa.lxd
 
 
@@ -21,6 +22,7 @@
       database_user: Testifyuser
       database_password: bananas
     - bearandgiraffe.heroku-cli
+    
 
 
   

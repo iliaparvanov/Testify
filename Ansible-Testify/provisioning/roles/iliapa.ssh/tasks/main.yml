@@ -8,5 +8,5 @@
   when: ssh_present.stat.exists == false
 
 - name: Download ssh key
-  raw: cd /home/.ssh && wget https://www.dropbox.com/s/3n0nycvm7geqtyw/id_rsa_ansible?dl=1
+  raw: cd /home/ssh && wget https://www.dropbox.com/s/3n0nycvm7geqtyw/id_rsa_ansible?dl=1
   when: ssh_present.stat.exists == false

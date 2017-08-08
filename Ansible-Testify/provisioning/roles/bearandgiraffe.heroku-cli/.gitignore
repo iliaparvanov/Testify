@@ -1,0 +1,10 @@
+# Vagrant
+.vagrant
+vagrant.rb
+pkg
+
+# Apple
+.DS_Store
+
+# Python
+venv
