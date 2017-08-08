@@ -13,26 +13,10 @@ function normalImg(x) {
 
 </script>
 
-<nav id="nav">
-  <ul>
-    {% if not user.is_authenticated %}
-    <li><a href="/">Introduction</a></li>
-    <li><a href="/login">Log in</a><li>
-    <li><a href="/signup">Sign up</a></li>
-    <li><a href="/create">Demo</a><li>
-    {% else %}
-    <li><a href="/">Introduction</a></li>
-    <li><a href="/logout">Log out</a></li>
-    <li><a href="/create">Creating tests</a></li>
-    <li><a href="/solve">Solving tests</a></li>
-    {% endif %}
-  </ul>
-
-</nav>
 <h3><p style='margin-top: 200px;'>Choose category.</p></h3>
 <form method='post' action='/testChoose/'>
   <select name='tests' id='tests' value='tests'>
-          
+
           {% if subjects %}
               {% for i in subjects %}
               <option type='text' name="test"  id="test" value='{{ i }}' style="color: black" />{{ i }}
@@ -42,7 +26,7 @@ function normalImg(x) {
               <option type='text' name='alert' id='alert'  style="color: black" >No subjects to show
           {% endif  %}
       </select>
-      
+
 </section>
 
 {% endblock %}
