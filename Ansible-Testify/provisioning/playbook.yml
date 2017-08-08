@@ -21,7 +21,7 @@
       database_name: Testify
       database_user: Testifyuser
       database_password: bananas
-    - bearandgiraffe.heroku-cli
+
     
 
 
