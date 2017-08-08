@@ -19,10 +19,7 @@
 
 </nav>
 
-
-
 {{ br }}
-
 
 <form action=/solveTest/ method="post" style="margin-top: 200px;">
     <p style="color: firebrick; font-size: 30px">{{ alert }}</p>
@@ -32,8 +29,6 @@
     <input type="hidden" name="wrongs" value="{{ wrongs }}" id="wrongs">
     <input type="hidden" name="all_wrong" value="{{ all_wrong }}" id="all_wrong">
     <label for="question"> Question:</label><input type="text"  name="question"  id="question" value="{{ questions }}" readonly="True" />
-
-
 
     <div style='margin-top: 20px;'>
         {% for i in answers %}

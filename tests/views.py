@@ -115,18 +115,15 @@ def getTest(request):
 		wrongs = list()
 		answers = Answers.objects.filter(question=questions[br]).order_by('pk')
 
-
 		return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'wrongs' : wrongs, 'results' : results, 'all_wrong' : all_wrong})
-
-
-
 
 def solveTest(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
 		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
-		wrongs = request.POST.getlist('wrongs', '')
+		wrongs = request.POST.getlist('wrongs')
+		print("Wrongs in the beginning: " + str(wrongs))
 		br = request.POST.get('br', '')
 		br = int(br)
 		results = request.POST.get('results', '')
@@ -134,29 +131,33 @@ def solveTest(request):
 		all_wrong = request.POST.get('all_wrong', '')
 		all_wrong = int(all_wrong)
 
-
-
+#TO DO: WRONGS
 		if br < len(questions):
+			if br == 0:
+				br += 1
+
 			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
 			if not str(request.POST.get('answer_right', '')):
 				alert = "Field for right answer empty"
-				if br == 0:
-					return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
-				else:
-					return render(request, 'tests/testSolving.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
+				# if br == 1:
+				# 	return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
+				# else:
+				return render(request, 'tests/testSolving.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : Answers.objects.filter(question=questions[br-1]).order_by('pk'), 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
+
 			if str(request.POST.get('answer_right', '')) == str(questions[br].answer_r):
 					results += 1
 					all_wrong = 0
 
 			else:
-				wrongs.append(br)
-
-
-			if br == 0:
-				br += 1
+			#	print("Wrongs when appending: " + str(wrongs))
+				wrongs.append(str(br))
+				print("Wrongs after append: " + str(wrongs))
 
 			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs})
 
 		else:
+			if str(request.POST.get('answer_right', '')) == str(questions[br-1].answer_r):
+				results += 1
+				all_wrong = 0
 
-			return render(request, 'tests/doneSolving.html', {'results' : results + 1, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
+			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
