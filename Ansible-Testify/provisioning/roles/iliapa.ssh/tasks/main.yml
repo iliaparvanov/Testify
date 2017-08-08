@@ -1,12 +1,12 @@
 ---
 - name: Check if ssh exists
-  stat: path=/home/.ssh
+  stat: path=/root/ssh
   register: ssh_present
 
 - name: make ssh folder
-  raw: cd /home && mkdir ssh
-  when: ssh_present.stat.exists == false
+  raw: cd /root && mkdir ssh
+  when: ssh_present.stat.exists == false 
 
 - name: Download ssh key
-  raw: cd /home/ssh && wget https://www.dropbox.com/s/3n0nycvm7geqtyw/id_rsa_ansible?dl=1
+  raw: cd /root/ssh && wget https://www.dropbox.com/s/3n0nycvm7geqtyw/id_rsa_ansible?dl=1 -O id_rsa_ansible && chmod -R 600 /root/ssh/id_rsa_ansible
   when: ssh_present.stat.exists == false
