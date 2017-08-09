@@ -1,7 +1,8 @@
 ---
  
 
-
+- name: Install build-essential
+  apt: name=build-essential state=present update_cache=yes
 
 - name: Create a started container
   lxd_container:
