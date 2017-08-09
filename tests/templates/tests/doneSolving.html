@@ -3,15 +3,12 @@
 {% block content %}
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
 
-<div style='margin-left: 250px; margin-top: 300px; font-size: 50px'>
+<div style='margin-left: 250px; margin-top: 100px; font-size: 50px'>
     {% if all_wrong %}
         <h3>You got 0 of {{ max }}!<h3> {{ wrongs }}
     {% else %}
         <h3>Congratulations, you got {{ results }} of {{ max }}!<h3>
     {% endif %}
-
-
 </div>
-
 
 {% endblock %}
