@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- hosts: localhost
+  connection: local
   become: true
   roles:
     - iliapa.image-download
@@ -7,7 +8,7 @@
     - iliapa.lxd
 
 
-- hosts: containers
+- hosts: all
   become: true
   gather_facts: False
   roles:
