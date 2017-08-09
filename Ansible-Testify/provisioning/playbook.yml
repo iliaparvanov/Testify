@@ -7,7 +7,7 @@
     - iliapa.lxd
 
 
-- hosts: all
+- hosts: containers
   become: true
   gather_facts: False
   roles:
