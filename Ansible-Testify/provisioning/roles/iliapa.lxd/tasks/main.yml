@@ -12,16 +12,16 @@
       type: image
       mode: pull
       protocol: lxd
-      alias: Base1
+      alias: Base
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
 # make one more 
   with_items:
      - mycontainer0
-     - mycontainer1
-     - mycontainer2
-     - mycontainer3
+     - mycontainer22
+     - mycontainer23
+     - mycontainer33
   register: containers_info
 
 - name: Wait for the network to be setup in the containers
@@ -33,7 +33,6 @@
     name: "{{ containers_info.results[item].addresses.eth0[0] }}"
     ansible_ssh_private_key_file: /root/ssh/id_rsa_ansible
     ansible_ssh_common_args: "-o UserKnownHostsFile=/dev/null"
-      
   with_items:
     - 0
     - 1
