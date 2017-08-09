@@ -50,21 +50,25 @@ def testChoose(request):
 	return render(request, 'tests/testChoose.html', {'names' : names})
 
 def create(request):
-	return render(request, 'tests/create.html')
+	flag=0
+	return render(request, 'tests/create.html', {'flag' : flag})
 
 def addTest(request):
 	if request.method == 'POST':
+		flag = request.POST.get('flag', '')
+		flag = int(flag)
 		name = request.POST.get('name', '')
 		if Test.objects.filter(name=name):
 			alert = "Name already taken!"
 			return render(request, 'tests/create.html', {"alert" : alert})
 		subject = request.POST.get('subject', '')
-		if Test.objects.filter(subject=subject):
+		if Test.objects.filter(subject=subject) and flag != 1:
+			flag = 1
 			alert = "Subject already exists! Are you sure you want to continue?"
 			q_num = request.POST.get('q_num', '')
 			a_num = request.POST.get('a_num', '')
-			return render(request, 'tests/create.html', {'name' : name, "alert" : alert, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
-		l = ["Math", "History", "Biology", "English", "Geography"]
+			return render(request, 'tests/create.html', {'name' : name, "alert" : alert, 'subject' : subject, "q_num" : q_num, "a_num" : a_num, 'flag' : flag})
+
 		q_num = request.POST.get('q_num', '')
 		a_num = request.POST.get('a_num', '')
 		if not q_num or not a_num or not subject or not name:
@@ -92,7 +96,6 @@ def addQuestions(request):
 			return HttpResponse("Right answer invalid")
 		question_o = Questions(name=test, question=question, answer_r=answer_r)
 		question_o.save()
-
 
 		answers = request.POST.getlist('answer', '')
 		for a in answers:

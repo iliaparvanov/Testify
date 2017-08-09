@@ -32,7 +32,21 @@
           </header>
 
         <!-- Nav -->
-
+				<nav id="nav">
+				  <ul>
+				    {% if not user.is_authenticated %}
+				    <li><a href="/">Introduction</a></li>
+				    <li><a href="/login">Log in</a><li>
+				    <li><a href="/signup">Sign up</a></li>
+				    <li><a href="/create">Demo</a><li>
+				    {% else %}
+				    <li><a href="/">Introduction</a></li>
+				    <li><a href="/logout">Log out</a></li>
+				    <li><a href="/create">Creating tests</a></li>
+				    <li><a href="/solve">Solving tests</a></li>
+				    {% endif %}
+				  </ul>
+				</nav>	
       <!--Main-->
 
       {% block content %}
