@@ -16,17 +16,19 @@ function normalImg(x) {
 <form action='/getTest/' method="post" style="margin-top: 100px;">
 	{% csrf_token %}
     <select name='tests' id='tests' value='tests' >
-        {% if names %}
-            {% for i in names %}
-            <option type='text' name="test"  id="test" value='{{ i }}' style="color: black" />{{ i }}
+        {% if names %}<!-- 
+            {% for i in names  %}
+                <option type='text' name="test"  id="test" value='{{ i }}' style="color: black" />{{ i }} - by {{ users.forloop.counter0 }}
+            {% endfor %} -->
+            {% for i in users  %}
+                <option type='text' name="test"  id="test" value='{{ i }}' style="color: black" />{{ i }} - by {{ users.forloop.counter0 }}
             {% endfor %}
+            <p style="margin-top: 20px;"><input type="submit" value="Solve" id="Solve"></p>
         {% else %}
             <option type='text' name='alert' id='alert'  style="color: black" >No tests to show
         {% endif  %}
     </select>
-    {% if names %}
-        <p style="margin-top: 20px;"><input type="submit" value="Solve" id="Solve"></p>
-    {% endif %}
+
 </form>
 
 

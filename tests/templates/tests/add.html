@@ -11,6 +11,7 @@
         {% for c in a_num %}
         <label style="margin-top: 20px;" for="answer">Answer {{ forloop.counter }}:</label><input type="text" name="answer"  id="answer" > <!-- forloop counter is the current iteration of the loop-->
         {% endfor %}
+        <label style="margin-top: 20px;" for="username"><input type="hidden" name="name" value="{{ name }}" id="name">
         <label style="margin-top: 20px;" for="name"><input type="hidden" name="name" value="{{ name }}" id="name">
         <label style="margin-top: 20px;" for="q_num"><input type="hidden" name="q_num" value="{{ q_num }}" id="q_num">
         <label style="margin-top: 20px;" for="a_num"><input type="hidden" name="a_num" value="{{ a_num }}" id="a_num">

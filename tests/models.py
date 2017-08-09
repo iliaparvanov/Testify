@@ -1,15 +1,21 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth.validators import ASCIIUsernameValidator
 
-
+class UserExtention(User):
+	first_name = False
+	last_name = False
+	email = False
 
 class Test(models.Model):
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	name = models.CharField(max_length=100)
 	subject = models.CharField(max_length=100)
 	q_num = models.CharField(max_length=100)
 	a_num = models.CharField(max_length=100)
 
 	def __str__(self):
-		return self.name + '-' + self.subject
+		return self.name + '-' + self.subject + '-' + self.user
 
 	class Meta:
 		ordering = ['pk']

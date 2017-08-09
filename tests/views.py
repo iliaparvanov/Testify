@@ -47,13 +47,18 @@ def solve(request):
 def testChoose(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
-	return render(request, 'tests/testChoose.html', {'names' : names})
+	users = list()
+	tests = Test.objects.all().filter(subject=subjects)
+	for i in range(len(names)):
+		users.append(tests[i].user)
+	return render(request, 'tests/testChoose.html', {'names' : names, 'users' : users})
 
 def create(request):
-	return render(request, 'tests/create.html'})
+	return render(request, 'tests/create.html')
 
 def addTest(request):
 	if request.method == 'POST':
+		current_user = request.user
 		name = request.POST.get('name', '')
 		if Test.objects.filter(name=name):
 			alert = "Name already taken!"
@@ -63,7 +68,7 @@ def addTest(request):
 			alert = "Subject already exists! Are you sure you want to continue?"
 			q_num = request.POST.get('q_num', '')
 			a_num = request.POST.get('a_num', '')
-			return render(request, 'tests/create.html', {'name' : name, "alert" : alert, 'subject' : subject, "q_num" : q_num, "a_num" : a_num)
+			return render(request, 'tests/create.html', {'name' : name, "alert" : alert, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
 
 		q_num = request.POST.get('q_num', '')
 		a_num = request.POST.get('a_num', '')
@@ -71,8 +76,9 @@ def addTest(request):
 			alert = "One or more fields is empty or inccorect"
 			return render(request, 'tests/create.html', {"names" : name, "alert" : alert})
 		l = list(range(int(a_num)))
-		test = Test(name=name, subject=subject, a_num=a_num, q_num=q_num)
-		test.save()
+		if request.user.is_authenticated():
+			test = Test(user=current_user, name=name, subject=subject, a_num=a_num, q_num=q_num)
+			test.save()
 		return render(request, 'tests/add.html', {'name' : name, 'q_num' : q_num, 'a_num' : l})
 
 def addQuestions(request):
@@ -112,6 +118,7 @@ def getTest(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
 		test = Test.objects.get(name=name)
+		
 		questions = Questions.objects.filter(name=test)
 		br = 0
 		results = 0
