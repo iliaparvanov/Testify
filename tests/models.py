@@ -11,7 +11,7 @@ class Test(models.Model):
 	a_num = models.CharField(max_length=100)
 
 	def __str__(self):
-		return self.name   + ' '+ ' ' + '(' + 'by' + ' ' + str(self.user) + ')'
+		return self.name  
 
 	class Meta:
 		ordering = ['pk']

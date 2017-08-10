@@ -47,18 +47,16 @@ def solve(request):
 def testChoose(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
+	
 	names_and_users = list()
 	users = list()
 	tests = Test.objects.all().filter(subject=subjects)
 	for i in range(len(names)):
 		users.append(tests[i].user)
-	testsandusers = list(range(2))
-	testsandusers[0] = tests 
-	testsandusers[1] = users 
 	len1 = len(tests)
 	len_list = list(range(len1))
-
-	return render(request, 'tests/testChoose.html', {'tests' : tests})
+	print(len_list)
+	return render(request, 'tests/testChoose.html', {'tests' : tests, 'users' : users, 'len1' : len_list})
 
 def create(request):
 	return render(request, 'tests/create.html')

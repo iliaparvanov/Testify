@@ -1,26 +1,21 @@
 {% extends "tests/header.html" %}
 
 {% block content %}
-<!--TODO: FIX ALL LINKS/STATIC FILES-->
-<script>
-function bigImg(x) {
-    document.getElementById(x).style.fontSize = "larger";
-};
-
-function normalImg(x) {
-    document.getElementById(x).style.fontSize = "x-large";
-};
-
-</script>
+{% load poll_extras %}
 
 <form action='/getTest/' method="post" style="margin-top: 100px;">
 	{% csrf_token %}
     <select name='tests' id='tests' value='tests' >
         {% if tests %}
-            {% for i in tests  %}
-                <option type='text' name="test"  id="test" value='{{ i }}' style="color: black" />{{ i }}
+        {{ tests }}{{ users }}
+            {% for i in len1 %}
+            
+                <option type='text' name="test"  id="test" value='{{ tests|return_item:i }}' style="color: black" />{{ tests|return_item:i }} - (by {{ users|return_item:i }})
+            
             {% endfor %}
+
             <p style="margin-top: 20px;"><input type="submit" value="Solve" id="Solve"></p>
+
         {% else %}
             <option type='text' name='alert' id='alert'  style="color: black" >No tests to show
         {% endif  %}
