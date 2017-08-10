@@ -1,0 +1,21 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+<!--TODO: FIX ALL LINKS/STATIC FILES-->
+
+
+<form action='/add/' method="post" style="margin-top: 100px;">
+	{% csrf_token %}
+    <h2> {{ subject }} subject already exists! Are you sure you want to continue? (Your test will be added in the same subject category) </h2>
+<!--     <label style="margin-top: 20px;" for="username"><input type="hidden" name="username" value="{{ username }}" id="username"> -->
+    <input type="hidden" name="subject" value="{{ subject }}" id="subject">
+    <input type="hidden" name="name" value="{{ name }}" id="name">
+    <input type="hidden" name="q_num" value="{{ q_num }}" id="q_num">
+    <input type="hidden" name="a_num" value="{{ a_num }}" id="a_num">
+    <input name="button_yes"  type="submit" value="Yes" id="button_yes">
+    <input name="button_no"  type="submit" value="No" id="button_no" style="margin-left: 5px;">
+
+</form>
+
+
+{% endblock %}

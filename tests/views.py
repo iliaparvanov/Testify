@@ -47,11 +47,18 @@ def solve(request):
 def testChoose(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
+	names_and_users = list()
 	users = list()
 	tests = Test.objects.all().filter(subject=subjects)
 	for i in range(len(names)):
 		users.append(tests[i].user)
-	return render(request, 'tests/testChoose.html', {'names' : names, 'users' : users})
+	testsandusers = list(range(2))
+	testsandusers[0] = tests 
+	testsandusers[1] = users 
+	len1 = len(tests)
+	len_list = list(range(len1))
+
+	return render(request, 'tests/testChoose.html', {'tests' : tests})
 
 def create(request):
 	return render(request, 'tests/create.html')
@@ -60,18 +67,30 @@ def addTest(request):
 	if request.method == 'POST':
 		current_user = request.user
 		name = request.POST.get('name', '')
+		q_num = request.POST.get('q_num', '')
+		a_num = request.POST.get('a_num', '')
+		subject = request.POST.get('subject', '')
 		if Test.objects.filter(name=name):
 			alert = "Name already taken!"
 			return render(request, 'tests/create.html', {"alert" : alert})
-		subject = request.POST.get('subject', '')
-		if Test.objects.filter(subject=subject):
-			alert = "Subject already exists! Are you sure you want to continue?"
-			q_num = request.POST.get('q_num', '')
-			a_num = request.POST.get('a_num', '')
-			return render(request, 'tests/create.html', {'name' : name, "alert" : alert, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
 
-		q_num = request.POST.get('q_num', '')
-		a_num = request.POST.get('a_num', '')
+		if Test.objects.filter(subject=subject):
+			if 'button_no' in request.POST:
+				return render(request, 'tests/create.html', {'name' : name, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
+			elif 'button_yes' in request.POST:
+				q_num = request.POST.get('q_num', '')
+				a_num = request.POST.get('a_num', '')
+				name = request.POST.get('name', '')
+				subject = request.POST.get('subject', '')
+				l = list(range(int(a_num)))
+				if request.user.is_authenticated():
+					test = Test(user=current_user, name=name, subject=subject, a_num=a_num, q_num=q_num)
+					test.save()
+				return render(request, 'tests/add.html', {'name' : name, 'q_num' : q_num, 'a_num' : l})
+			else:
+				return render(request, 'tests/alert.html', {'name' : name, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
+
+		
 		if not q_num or not a_num or not subject or not name:
 			alert = "One or more fields is empty or inccorect"
 			return render(request, 'tests/create.html', {"names" : name, "alert" : alert})
