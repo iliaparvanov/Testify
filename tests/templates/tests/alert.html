@@ -7,7 +7,6 @@
 <form action='/add/' method="post" style="margin-top: 100px;">
 	{% csrf_token %}
     <h2> {{ subject }} subject already exists! Are you sure you want to continue? (Your test will be added in the same subject category) </h2>
-<!--     <label style="margin-top: 20px;" for="username"><input type="hidden" name="username" value="{{ username }}" id="username"> -->
     <input type="hidden" name="subject" value="{{ subject }}" id="subject">
     <input type="hidden" name="name" value="{{ name }}" id="name">
     <input type="hidden" name="q_num" value="{{ q_num }}" id="q_num">
