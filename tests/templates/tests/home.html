@@ -41,7 +41,15 @@
           <h3>Save</h3>
           <p>Last, you must save your test so other people can try to solve it.</p>
         </li>
-      </ul>
+    </ul>  <!-- Scripts -->
+		{% load staticfiles %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
+    <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>
+    <script src="{% static 'js/skel.min.js' %}"></script>
+    <script src="{% static 'js/util.js' %}"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="{% static 'js/main.js' %}"></script>
       <footer class="major">
       </footer>
     </section>
@@ -79,4 +87,5 @@
 
 
 </div>
+
 {% endblock %}
