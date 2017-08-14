@@ -31,7 +31,7 @@ def signup(request):
 	return render(request, 'registration/signup.html', {'form': form})
 
 
-def solve(request):
+def solveChooseCategory(request):
 	test = Test.objects.all()
 	l = list()
 	l2 = list(range(int(len(test))))
@@ -42,12 +42,12 @@ def solve(request):
 				l.append(test[i].subject)
 		except Exception:
 			return HttpResponse("Wrong input")
-	return render(request, 'tests/solve.html', {'subjects' : l})
+	return render(request, 'tests/solveChooseCategory.html', {'subjects' : l})
 
-def testChoose(request):
+def solveChooseTest(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
-	
+
 	names_and_users = list()
 	users = list()
 	tests = Test.objects.all().filter(subject=subjects)
@@ -56,12 +56,12 @@ def testChoose(request):
 	len1 = len(tests)
 	len_list = list(range(len1))
 	print(len_list)
-	return render(request, 'tests/testChoose.html', {'tests' : tests, 'users' : users, 'len1' : len_list})
+	return render(request, 'tests/solveChooseTest.html', {'tests' : tests, 'users' : users, 'len1' : len_list})
 
-def create(request):
-	return render(request, 'tests/create.html')
+def createTest(request):
+	return render(request, 'tests/createTest.html')
 
-def addTest(request):
+def addFirstQuestion(request):
 	if request.method == 'POST':
 		current_user = request.user
 		name = request.POST.get('name', '')
@@ -70,11 +70,11 @@ def addTest(request):
 		subject = request.POST.get('subject', '')
 		if Test.objects.filter(name=name):
 			alert = "Name already taken!"
-			return render(request, 'tests/create.html', {"alert" : alert})
+			return render(request, 'tests/createTest.html', {"alert" : alert})
 
 		if Test.objects.filter(subject=subject):
 			if 'button_no' in request.POST:
-				return render(request, 'tests/create.html', {'name' : name, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
+				return render(request, 'tests/createTest.html', {'name' : name, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
 			elif 'button_yes' in request.POST:
 				q_num = request.POST.get('q_num', '')
 				a_num = request.POST.get('a_num', '')
@@ -84,21 +84,20 @@ def addTest(request):
 				if request.user.is_authenticated():
 					test = Test(user=current_user, name=name, subject=subject, a_num=a_num, q_num=q_num)
 					test.save()
-				return render(request, 'tests/add.html', {'name' : name, 'q_num' : q_num, 'a_num' : l})
+				return render(request, 'tests/addQuestion.html', {'name' : name, 'q_num' : q_num, 'a_num' : l})
 			else:
 				return render(request, 'tests/alert.html', {'name' : name, 'subject' : subject, "q_num" : q_num, "a_num" : a_num})
 
-		
 		if not q_num or not a_num or not subject or not name:
 			alert = "One or more fields is empty or inccorect"
-			return render(request, 'tests/create.html', {"names" : name, "alert" : alert})
+			return render(request, 'tests/createTest.html', {"names" : name, "alert" : alert})
 		l = list(range(int(a_num)))
 		if request.user.is_authenticated():
 			test = Test(user=current_user, name=name, subject=subject, a_num=a_num, q_num=q_num)
 			test.save()
-		return render(request, 'tests/add.html', {'name' : name, 'q_num' : q_num, 'a_num' : l})
+		return render(request, 'tests/addQuestion.html', {'name' : name, 'q_num' : q_num, 'a_num' : l})
 
-def addQuestions(request):
+def addNextQuestions(request):
 	if request.method == 'POST':
 		test = Test.objects.get(name=request.POST.get('name', ''))
 		question = request.POST.get('question', '')
@@ -109,7 +108,7 @@ def addQuestions(request):
 		a_num = list(range(int(len(a_num)/3)))
 		if not q_num or not a_num:
 			alert = "One or more fields are empty"
-			return render(request, 'tests/add.html', {'name' : request.POST.get('name', ''), 'q_num' : q_num, 'a_num' : a_num, "alert" : alert})
+			return render(request, 'tests/addQuestion.html', {'name' : request.POST.get('name', ''), 'q_num' : q_num, 'a_num' : a_num, "alert" : alert})
 
 		if int(answer_r) > int(len(a_num)) or int(answer_r) < 1:
 			return HttpResponse("Right answer invalid")
@@ -122,20 +121,20 @@ def addQuestions(request):
 			a.save()
 
 		if q_num > 1:
-			return render(request, 'tests/add.html', {'q_num' : q_num - 1, 'name' : request.POST.get('name', ''), 'a_num' : a_num})
+			return render(request, 'tests/addQuestion.html', {'q_num' : q_num - 1, 'name' : request.POST.get('name', ''), 'a_num' : a_num})
 		else:
 			if not request.user.is_authenticated:
 				Test.objects.filter(name=request.POST.get('name', '')).delete()
 				message = "Your test was created, but was not saved. If you'd like to save a test, please log in"
 			else:
 				message = "Test successfully created!"
-			return render(request, 'tests/done.html', {"message" : message})
+			return render(request, 'tests/doneAdding.html', {"message" : message})
 
-def getTest(request):
+def solveFirstQuestion(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
 		test = Test.objects.get(name=name)
-		
+
 		questions = Questions.objects.filter(name=test)
 		br = 0
 		results = 0
@@ -143,9 +142,9 @@ def getTest(request):
 		wrongs = list()
 		answers = Answers.objects.filter(question=questions[br]).order_by('pk')
 
-		return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'wrongs' : wrongs, 'results' : results, 'all_wrong' : all_wrong})
+		return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'wrongs' : wrongs, 'results' : results, 'all_wrong' : all_wrong})
 
-def solveTest(request):
+def solveNextQuestions(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
 		test = Test.objects.get(name=name)
@@ -170,7 +169,7 @@ def solveTest(request):
 				# if br == 1:
 				# 	return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
 				# else:
-				return render(request, 'tests/testSolving.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : Answers.objects.filter(question=questions[br-1]).order_by('pk'), 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
+				return render(request, 'tests/solveQuestion.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : Answers.objects.filter(question=questions[br-1]).order_by('pk'), 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
 
 			if str(request.POST.get('answer_right', '')) == str(questions[br].answer_r):
 					results += 1
@@ -181,7 +180,7 @@ def solveTest(request):
 				wrongs.append(str(br))
 				print("Wrongs after append: " + str(wrongs))
 
-			return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs})
+			return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs})
 
 		else:
 			if str(request.POST.get('answer_right', '')) == str(questions[br-1].answer_r):

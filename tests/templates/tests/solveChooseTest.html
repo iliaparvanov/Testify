@@ -3,15 +3,15 @@
 {% block content %}
 {% load poll_extras %}
 
-<form action='/getTest/' method="post" style="margin-top: 100px;">
+<form action='/solve-first-question/' method="post" style="margin-top: 100px;">
 	{% csrf_token %}
     <select name='tests' id='tests' value='tests' >
         {% if tests %}
         {{ tests }}{{ users }}
             {% for i in len1 %}
-            
+
                 <option type='text' name="test"  id="test" value='{{ tests|return_item:i }}' style="color: black" />{{ tests|return_item:i }} - (by {{ users|return_item:i }})
-            
+
             {% endfor %}
 
             <p style="margin-top: 20px;"><input type="submit" value="Solve" id="Solve"></p>
