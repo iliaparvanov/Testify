@@ -2,26 +2,26 @@
 
 {% block content %}
 {% load tests_extras %}
-
-<form action='/solve-first-question/' method="post" style="margin-top: 100px;">
-	{% csrf_token %}
-    <select name='tests' id='tests' value='tests' >
-        {% if tests %}
-        {{ tests }}{{ users }}
-            {% for i in len1 %}
+<div style='margin-top:6em;' id='Main'>
+     <p style='font-size: 26px; margin-bottom: 1em;'>Choose test</p>
+    <form action='/solve-first-question/' method="post">
+    	{% csrf_token %}
+        <select name='tests' id='tests' value='tests' >
+            {% if tests %}
+                {% for i in len1 %}
 
                 <option type='text' name="test"  id="test" value='{{ tests|return_item:i }}' style="color: black" />{{ tests|return_item:i }} - (by {{ users|return_item:i }})
 
-            {% endfor %}
+                {% endfor %}
 
-            <p style="margin-top: 20px;"><input type="submit" value="Solve" id="Solve"></p>
+                <p><input style="margin-top: 1em;" type="submit" value="Solve" id="Solve"></p>
 
-        {% else %}
-            <option type='text' name='alert' id='alert'  style="color: black" >No tests to show
-        {% endif  %}
-    </select>
+            {% else %}
+                <option type='text' name='alert' id='alert'  style="color: black" >No tests to show
+            {% endif  %}
+        </select>
 
-</form>
-
+    </form>
+</div>
 
 {% endblock %}

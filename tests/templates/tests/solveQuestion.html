@@ -4,37 +4,34 @@
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
 
 
-{{ br }}
+<div style='margin-top:6em;' id='Main'>
+    <form action=/solve-next-questions/ method="post">
+        <p style="color: firebrick; font-size: 30px">{{ alert }}</p>
+    	<input type="hidden" name="tests" value="{{ tests }}" id="tests">
+       	<input type="hidden" name="br" value="{{ br }}" id="br">
+        <input type="hidden" name="results" value="{{ results }}" id="results">
+        <!-- <input type="hidden" name="len_wrongs" value="{{ len_wrongs }}" id="len_wrongs">
+        {% for n in wrongs %}
+        <input type="hidden" name="wrongs" value="{{ n }}" id="wrongs">
+        {% endfor %} -->
+        <input type="hidden" name="wrongs" value="{{ wrongs }}" id="wrongs">
+        <input type="hidden" name="all_wrong" value="{{ all_wrong }}" id="all_wrong">
+        <label for="question"> Question:</label><input type="text"  name="question"  id="question" value="{{ questions }}" readonly="True" />
 
-<form action=/solve-next-questions/ method="post" style="margin-top: 100px;">
-    <p style="color: firebrick; font-size: 30px">{{ alert }}</p>
-	<input type="hidden" name="tests" value="{{ tests }}" id="tests">
-   	<input type="hidden" name="br" value="{{ br }}" id="br">
-    <input type="hidden" name="results" value="{{ results }}" id="results">
-    <!-- <input type="hidden" name="len_wrongs" value="{{ len_wrongs }}" id="len_wrongs">
-    {% for n in wrongs %}
-    <input type="hidden" name="wrongs" value="{{ n }}" id="wrongs">
-    {% endfor %} -->
-    <input type="hidden" name="wrongs" value="{{ wrongs }}" id="wrongs">
-    <input type="hidden" name="all_wrong" value="{{ all_wrong }}" id="all_wrong">
-    <label for="question"> Question:</label><input type="text"  name="question"  id="question" value="{{ questions }}" readonly="True" />
-
-    <div style='margin-top: 20px;'>
-        {% for i in answers %}
-        <label style="margin-top: 20px;" for="checkbox_id{{ i }}">Answer {{ forloop.counter }}</label>
-        <input type="text" name="checkbox" id="checkbox_id{{ i }}" value="{{ i }}" readonly="True">
-        {% endfor %}
-        <label style="margin-top: 20px;" for="answer_right">Number of right answer (eg. 2)</label>
-        <input type="text" name="answer_right" id="answer_right">
-    </div>
-
-
-    <input type="checkbox" name="checkbox" id="checkbox_id2" value="shit">
-    <input style="margin-top: 20px;" type="submit" value="Next" id="button" style="margin-top: 100px;">
-</form>
+        <div style='margin-top: 20px;'>
+            {% for i in answers %}
+            <label style="margin-top: 20px;" for="checkbox_id{{ i }}">Answer {{ forloop.counter }}</label>
+            <input type="text" name="checkbox" id="checkbox_id{{ i }}" value="{{ i }}" readonly="True">
+            {% endfor %}
+            <label style="margin-top: 20px;" for="answer_right">Number of right answer (eg. 2)</label>
+            <input type="text" name="answer_right" id="answer_right">
+        </div>
 
 
-
+        <input type="checkbox" name="checkbox" id="checkbox_id2" value="shit">
+        <input style="margin-top: 20px;" type="submit" value="Next" id="button" style="margin-top: 100px;">
+    </form>
+</div>
 
 
 

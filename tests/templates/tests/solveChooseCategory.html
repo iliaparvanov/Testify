@@ -2,31 +2,22 @@
 
 {% block content %}
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
-<script>
-function bigImg(x) {
-    document.getElementById(x).style.fontSize = "larger";
-};
-
-function normalImg(x) {
-    document.getElementById(x).style.fontSize = "x-large";
-};
-
-</script>
-
-<h3><p style='margin-top: 100px;'>Choose category.</p></h3>
-<form method='post' action='/solve-choose-test/'>
-  <select name='tests' id='tests' value='tests'>
+<div style='margin-top:6em;' id='Main'>
+  <div class="content">
+  <p style='font-size: 26px; margin-bottom: 1em;'>Choose category</p>
+  <form method='post' action='/solve-choose-test/'>
+    <select name='tests' id='tests' value='tests'>
 
           {% if subjects %}
               {% for i in subjects %}
               <option type='text' name="test"  id="test" value='{{ i }}' style="color: black" />{{ i }}
               {% endfor %}
-              <p><input style="margin-top: 20px;" type="submit" value="Select" id="Solve"></p>
+              <p><input style="margin-top: 1em;" type="submit" value="Select" id="Solve"></p>
           {% else %}
               <option type='text' name='alert' id='alert'  style="color: black" >No subjects to show
           {% endif  %}
       </select>
-
-</section>
+    </div>
+</div>
 
 {% endblock %}

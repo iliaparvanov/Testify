@@ -4,8 +4,7 @@
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
 
 
-</nav>
-<ul style='margin-top: 100px;'>
+<div style='margin-top:6em;' id='Main'>
     {% if not user.is_authenticated %}
     <p style="font-size: 18px;">Note: You are currently not logged in and your test will not be saved!</p>
     {% endif %}
@@ -17,8 +16,7 @@
         <label style="margin-top: 20px;" for="a_num"> Number of answers:</label><input type="text" value="{{ a_num }}" name="a_num"  id="a_num"/>
         <p style="margin-top: 20px;"><input type="submit" value="Create" id="Create"></p>
     </form>
-</ul>
-
+</div>
 
 
 {% endblock %}

@@ -2,9 +2,7 @@
 
 {% block content %}
 <!--TODO: FIX ALL LINKS/STATIC FILES-->
-
-<ul style='margin-top: 100px;'>
-
+<div style='margin-top:6em;' id='Main'>
     <form action=/add-next-questions/ method="post" accept-charset="utf-8">
         <p style="color: red; font-size: 30px">{{ alert }}</p>
         <label style="margin-top: 20px;" for="question">Question:</label><input type="text" name="question"  id="question">
@@ -18,8 +16,7 @@
         <label style="margin-top: 20px;" for="answer_r">Number of right answer (eg. 3)<input type="text" name="answer_r" id="answer_r">
         <p style="margin-top: 20px;"><input type="submit" value="Create" id="Create"></p>
     </form>
-
-</ul>
+</div>
 
 
 
