@@ -3260,7 +3260,7 @@
 		#nav strong, #nav b {
 			color: #636363;
 		}
-
+Nav
 		#nav h1, #nav h2, #nav h3, #nav h4, #nav h5, #nav h6 {
 			color: #636363;
 		}
@@ -3343,7 +3343,7 @@
 		@media screen and (max-width: 736px) {
 
 			#nav {
-				display: none;
+				display: inline-block;
 			}
 
 				#nav + #main {
@@ -3799,3 +3799,8 @@
 			}
 
 		}
+
+
+	#about {
+		margin-top: 6em;
+	}

@@ -10,12 +10,20 @@
     <section id="intro" class="main">
       <div class="spotlight">
         <div class="content">
-          <header class="major"  style='margin-top: 6em;'>
-            <h2>About project</h2>
+          <header class="major" style="margin-top: 5em;">
+            <h2>About the project</h2>
           </header>
-          <h2><p>We host an Internet platform for creating and solving tests that is easy to use. Hope you like it!</p></h2>
+          <h2><p>We host an Internet platform for creating and solving tests that is easy to use. Try it now or scroll down for a more detailed explanation.</p></h2>
           <ul class="actions">
-            <li><a href="https://www.facebook.com/groups/931631780263828/?fref=ts" class="button">Learn More</a></li>
+            {% if not user.is_authenticated %}
+            <li><a href="/login" class="button">Log in</a></li>
+            <li><a href="/signup" class="button">Sign up</a></li>
+            <li><a href="/create-test" class="button">Try a demo</a></li>
+            {% else %}
+            <li><a href="/login" class="button">Log out</a></li>
+            <li><a href="/create-test" class="button">Create tests</a></li>
+            <li><a href="/solve-choose-category" class="button">Solve tests</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -24,23 +32,23 @@
   <!-- First Section -->
     <section id="first" class="main special">
       <header class="major">
-        <h2>Three basic steps and you can create your own test!</h2>
+        <h2>Creating tests</h2>
       </header>
       <ul class="features">
         <li>
           <span class="icon major style1 fa-code"></span>
           <h3>Set range</h3>
-          <p>First, you must input how many questions and answers your test will have.</p>
+          <p>Firstly, you have to input how many questions and answers your test will have.</p>
         </li>
         <li>
           <span class="icon major style3 fa-copy"></span>
           <h3>Questions and answers</h3>
-          <p>Second, you must type all of your questions and answers.</p>
+          <p>Secondly, you have to type all of your questions and answers.</p>
         </li>
         <li>
           <span class="icon major style5 fa-diamond"></span>
           <h3>Save</h3>
-          <p>Last, you must save your test so other people can try to solve it.</p>
+          <p>Finally, you have to save your test so other people can try to solve it.</p>
         </li>
     </ul>  <!-- Scripts -->
       <footer class="major">
@@ -52,30 +60,8 @@
       <header class="major">
         <h2>Solving tests</h2>
       </header>
-
-      <h3><p>When you want to solve test, first you choose the category from the ones below. You can choose from five different category of tests.</p></h3>
+      <h3><p>When you want to solve a test, first you choose a category from the ones which our users have created. Then you input the answers you think are right</p></h3>
       <ul class="statistics">
-        <li class="style1">
-          <span class="icon fa-code-fork"></span>
-          <strong>5,120</strong> Math
-        </li>
-        <li class="style2">
-          <span clasectionss="icon fa-folder-open-o"></span>
-          <strong>8,192</strong> English
-        </li>
-        <li class="style3">
-          <span class="icon fa-signal"></span>
-          <strong>2,048</strong> Geography
-        </li>
-        <li class="style4">
-          <span class="icon fa-laptop"></span>
-          <strong>4,096</strong> History
-        </li>
-        <li class="style5">
-          <span class="icon fa-diamond"></span>
-          <strong>1,024</strong> Biology
-        </li>
-      </ul>
     </section>
 
 
