@@ -1,7 +1,7 @@
 {% extends "tests/header.html" %}
 
 {% block content %}
-{% load poll_extras %}
+{% load tests_extras %}
 
 <form action='/solve-first-question/' method="post" style="margin-top: 100px;">
 	{% csrf_token %}

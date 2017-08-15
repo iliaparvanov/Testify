@@ -30,21 +30,22 @@
           </header>
 
         <!-- Nav -->
-				<nav id="nav">
-				  <ul>
-				    {% if not user.is_authenticated %}
-				    <li><a href="/">Introduction</a></li>
-				    <li><a href="/login">Log in</a><li>
-				    <li><a href="/signup">Sign up</a></li>
-				    <li><a href="/create-test">Demo</a><li>
-				    {% else %}
-				    <li><a href="/">Introduction</a></li>
-				    <li><a href="/logout">Log out</a></li>
-				    <li><a href="/create-test">Creating tests</a></li>
-				    <li><a href="/solve-choose-category">Solving tests</a></li>
-				    {% endif %}
-				  </ul>
-				</nav>
+        <nav id="nav">
+          <ul>
+            {% if not user.is_authenticated %}
+            <li><a href="/">Introduction</a></li>
+            <li><a href="/login">Log in</a><li>
+            <li><a href="/signup">Sign up</a></li>
+            <li><a href="/create-test">Demo</a><li>
+            {% else %}
+            <li><a href="/">Introduction</a></li>
+            <li><a href="/logout">Log out</a></li>
+            <li><a href="/create-test">Creating tests</a></li>
+            <li><a href="/solve-choose-category">Solving tests</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+
       <!--Main-->
 
       {% block content %}
@@ -82,7 +83,6 @@
     </div>
 
   <!-- Scripts -->
-		{% load staticfiles %}
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery.scrollex.min.js' %}"></script>
     <script src="{% static 'js/jquery.scrolly.min.js' %}"></script>

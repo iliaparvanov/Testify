@@ -11,7 +11,11 @@
 	<input type="hidden" name="tests" value="{{ tests }}" id="tests">
    	<input type="hidden" name="br" value="{{ br }}" id="br">
     <input type="hidden" name="results" value="{{ results }}" id="results">
-    <input type="hidden" name="wrongs" value="{{ wrongs }}" id="wrongs">
+    <!-- <input type="hidden" name="len_wrongs" value="{{ len_wrongs }}" id="len_wrongs">
+    {% for n in wrongs %}
+    <input type="hidden" name="wrongs" value="{{ n }}" id="wrongs">
+    {% endfor %} -->
+    <input type="hidden" name="wrongs" value="{{ wrongs }}" id="wrongs">    
     <input type="hidden" name="all_wrong" value="{{ all_wrong }}" id="all_wrong">
     <label for="question"> Question:</label><input type="text"  name="question"  id="question" value="{{ questions }}" readonly="True" />
 
