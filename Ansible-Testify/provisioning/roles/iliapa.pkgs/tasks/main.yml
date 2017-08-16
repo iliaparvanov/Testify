@@ -1,7 +1,6 @@
 ---
 - name: Install some dependencies for libmysqlclient-dev
-  apt: name=software-properties-common state=present update_cache=yes
-
+  raw: apt-get install software-properties-common && apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.netinch.com/pub/mariadb/repo/10.0/debian jessie main' && apt -y update
 #- apt_key:
 #    keyserver: "https://keyserver.ubuntu.com:80"
  #   id: 0xF1656F24C74CD1D8
