@@ -3,11 +3,12 @@
   apt: name=software-properties-common state=present update_cache=yes
 
 - apt_key:
-    keyserver: "keyserver.ubuntu.com"
-    id: 0xcbcb082a1bb943db
+    keyserver: "https://keyserver.ubuntu.com:80"
+    id: 0xF1656F24C74CD1D8
     state: present
+
 - apt_repository:
-    repo: deb http://mirror.netinch.com/pub/mariadb/repo/10.0/debian  jessie main 
+    repo: deb [arch=amd64,i386,ppc64el] http://mirror.jmu.edu/pub/mariadb/repo/10.1/ubuntu xenial main
     state: present
   
 - name: apt update
@@ -29,7 +30,7 @@
   poll: 30
 
 #- name: Add Heroku repo
-#  apt_repository: repo='deb https://cli-assets.heroku.com/branches/stable/#apt ./' state=present filename='heroku' update_cache='yes'
+#  apt_repository: repo='deb https://cli-assets.heroku.com/branches/stable/#apt deb http://mirror.netinch.com/pub/mariadb/repo/10.0/debian  jessie main ./' state=present filename='heroku' update_cache='yes'
 #- name: Some Heroku-related bs
 #  raw: curl -L https://cli-assets.heroku.com/apt/release.key | sudo apt-key #add -
 #- name: Install Heroku
