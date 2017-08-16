@@ -1,6 +1,8 @@
 ---
 - name: Install some dependencies for libmysqlclient-dev
-  raw: apt-get install software-properties-common && apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.netinch.com/pub/mariadb/repo/10.0/debian jessie main' && apt -y update
+  apt: name=software-properties-common state=present update_cache=yes
+- name: Install some dependencies for libmysqlclient-dev
+  raw: apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.netinch.com/pub/mariadb/repo/10.0/debian jessie main' && apt -y update
 
 - name: Install required packages
   apt: name="{{ item }}" state=present update_cache=yes
