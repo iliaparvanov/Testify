@@ -6,7 +6,7 @@ from . import *
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
-
+from django.contrib.auth.decorators import login_required
 
 
 class QueryExceptionError(Exception):
@@ -30,7 +30,7 @@ def signup(request):
 		form = UserCreationForm()
 	return render(request, 'registration/signup.html', {'form': form})
 
-
+@login_required
 def solveChooseCategory(request):
 	test = Test.objects.all()
 	l = list()
@@ -44,6 +44,7 @@ def solveChooseCategory(request):
 			return HttpResponse("Wrong input")
 	return render(request, 'tests/solveChooseCategory.html', {'subjects' : l})
 
+@login_required
 def solveChooseTest(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
