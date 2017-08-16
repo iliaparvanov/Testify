@@ -1,0 +1,7 @@
+---
+- name: enable service testify
+  systemd:
+    name: testify
+    enabled: yes
+ 
+
