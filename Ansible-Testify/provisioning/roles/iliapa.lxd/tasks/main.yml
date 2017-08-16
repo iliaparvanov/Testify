@@ -12,13 +12,13 @@
       type: image
       mode: pull
       protocol: lxd
-      alias: Base
+      alias: Base1
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
 # make one more 
   with_items:
-     - mycontainer0
+     - mycontainer
   register: containers_info
 
 - name: Wait for the network to be setup in the containers
