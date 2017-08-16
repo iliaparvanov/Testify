@@ -7,12 +7,12 @@
  #   id: 0xF1656F24C74CD1D8
   #  state: present
 
-- apt_repository:
-    repo: deb [arch=amd64,i386,ppc64el] http://mirror.jmu.edu/pub/mariadb/repo/10.1/ubuntu xenial main
-    state: present
+#- apt_repository:
+  #  repo: deb [arch=amd64,i386,ppc64el] http://mirror.jmu.edu/pub/mariadb/repo/10.1/ubuntu xenial main
+ #   state: present
   
-- name: apt update
-  raw: apt update -y
+#- name: apt update
+ # raw: apt update -y
   
 - name: Install required packages
   apt: name="{{ item }}" state=present update_cache=yes
