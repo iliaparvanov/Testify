@@ -25,7 +25,7 @@
     - libssl-dev
     - python-mysqldb
     - nginx
-  raw: sudo ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/
+  
 
   async: 400
   poll: 30
