@@ -203,15 +203,19 @@ def solveNextQuestions(request):
 
 @permission_required('tests.can_delete', raise_exception=True)
 def deleteTests(request):
-	subjects = request.POST.get('tests', '')
-	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
-
-	names_and_users = list()
-	users = list()
-	tests = Test.objects.all().filter(subject=subjects)
-	for i in range(len(names)):
-		users.append(tests[i].user)
-	len1 = len(tests)
-	len_list = list(range(len1))
-	print(len_list)
-	return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'len1' : len_list})
+	if request.method == 'POST':
+		name = request.POST.get('tests', '')
+		test = Test.objects.get(name=name)
+		test.delete()
+		message = "Test successfully deleted!"
+		return render(request, 'tests/doneDeleting.html', {'message' : message})
+	else:
+		names = [test.name for test in Test.objects.all()]
+		users = list()
+		tests = Test.objects.all()
+		for i in range(len(names)):
+			users.append(tests[i].user)
+		len1 = len(tests)
+		len_list = list(range(len1))
+		print(len_list)
+		return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'len1' : len_list})
