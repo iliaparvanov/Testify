@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^create-test/', views.createTest, name='createTest'),
     url(r'^add-first-question/', views.addFirstQuestion, name='addFirstQuestion'),
     url(r'^add-next-questions/', views.addNextQuestions, name='addNextQuestions'),
+    url(r'^delete-tests/', views.deleteTests, name='deleteTests'),
 ]

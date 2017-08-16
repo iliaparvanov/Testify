@@ -6,7 +6,7 @@ from . import *
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 class QueryExceptionError(Exception):
@@ -200,3 +200,18 @@ def solveNextQuestions(request):
 				print("Wrongs after append: " + str(wrongs))
 			wrongs = wrongs[1:]
 			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
+
+@permission_required('tests.can_delete', raise_exception=True)
+def deleteTests(request):
+	subjects = request.POST.get('tests', '')
+	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
+
+	names_and_users = list()
+	users = list()
+	tests = Test.objects.all().filter(subject=subjects)
+	for i in range(len(names)):
+		users.append(tests[i].user)
+	len1 = len(tests)
+	len_list = list(range(len1))
+	print(len_list)
+	return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'len1' : len_list})

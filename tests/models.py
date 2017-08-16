@@ -11,10 +11,13 @@ class Test(models.Model):
 	a_num = models.CharField(max_length=100)
 
 	def __str__(self):
-		return self.name  
+		return self.name
 
 	class Meta:
 		ordering = ['pk']
+		permissions = (
+			('can_delete', 'Can delete existing tests'),
+		)
 
 class Questions(models.Model):
 	question = models.CharField(max_length=1000)
@@ -26,9 +29,8 @@ class Questions(models.Model):
 	class Meta:
 		ordering = ['pk']
 
-	
-	
-	
+
+
 class Answers(models.Model):
 	question = models.ForeignKey(Questions, on_delete = models.CASCADE)
 	answer = models.CharField(max_length=1000)
@@ -38,4 +40,3 @@ class Answers(models.Model):
 
 	class Meta:
 		ordering = ['pk']
-
