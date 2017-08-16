@@ -19,8 +19,3 @@
   environment:
     - PATH: "/home/user/.local/bin/:/bin:/usr/bin:/usr/local/bin"
 
-- name: Django start
-  raw: cd /home/Testify && python3 manage.py runserver
-
-  environment:
-    - PATH: "/home/user/.local/bin/:/bin:/usr/bin:/usr/local/bin"
