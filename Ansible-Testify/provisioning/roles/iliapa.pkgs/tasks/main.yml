@@ -2,10 +2,10 @@
 - name: Install some dependencies for libmysqlclient-dev
   apt: name=software-properties-common state=present update_cache=yes
 
-- apt_key:
-    keyserver: "https://keyserver.ubuntu.com:80"
-    id: 0xF1656F24C74CD1D8
-    state: present
+#- apt_key:
+#    keyserver: "https://keyserver.ubuntu.com:80"
+ #   id: 0xF1656F24C74CD1D8
+  #  state: present
 
 - apt_repository:
     repo: deb [arch=amd64,i386,ppc64el] http://mirror.jmu.edu/pub/mariadb/repo/10.1/ubuntu xenial main
