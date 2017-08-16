@@ -8,6 +8,13 @@ https://docs.djangoproject.com/en/1.10/howto/deployment/wsgi/
 """
 
 import os
+import sys
+
+# add your project directory to the sys.path
+project_home = u'/home/Testify'
+if project_home not in sys.path:
+    sys.path.append(project_home)
+
 
 from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
