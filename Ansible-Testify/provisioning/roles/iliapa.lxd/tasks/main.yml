@@ -19,9 +19,6 @@
 # make one more 
   with_items:
      - mycontainer0
-     - mycontainer22
-     - mycontainer23
-     - mycontainer33
   register: containers_info
 
 - name: Wait for the network to be setup in the containers
@@ -35,7 +32,5 @@
     ansible_ssh_common_args: "-o UserKnownHostsFile=/dev/null"
   with_items:
     - 0
-    - 1
-    - 2
-    - 3
+
 
