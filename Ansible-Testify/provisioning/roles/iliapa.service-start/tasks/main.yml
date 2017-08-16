@@ -1,6 +1,6 @@
 ---
 - name: enable service testify
-#  raw: /etc/init.d/nginx restart  && ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/ 
+  raw: systemctl restart nginx  && ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/ 
   systemd:
     
     name: testify
