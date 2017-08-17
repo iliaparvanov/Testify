@@ -157,7 +157,6 @@ def solveNextQuestions(request):
 		# for n in range(len_wrongs):
 		# 	wrongs.append(request.POST.get('i', ''))
 		wrongs = request.POST.get('wrongs', '')
-		print("Wrongs in the beginning: " + str(wrongs))
 		br = request.POST.get('br', '')
 		br = int(br)
 		results = request.POST.get('results', '')
@@ -171,19 +170,16 @@ def solveNextQuestions(request):
 				br += 1
 
 			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
-			if not str(request.POST.get('answer_right', '')):
-				alert = "Field for right answer empty"
-				# if br == 1:
-				# 	return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
-				# else:
-				return render(request, 'tests/solveQuestion.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : Answers.objects.filter(question=questions[br-1]).order_by('pk'), 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert, "len_wrongs" : len_wrongs})
+			# if not str(request.POST.get('answer_right', '')):
+			# 	alert = "Field for right answer empty"
+			# 	return render(request, 'tests/solveQuestion.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : Answers.objects.filter(question=questions[br-1]).order_by('pk'), 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert, "len_wrongs" : len_wrongs})
 
-			if str(request.POST.get('answer_right', '')) == str(questions[br].answer_r):
+#EDIT THIS !
+			print('Answer_r in db:' + str(questions[br].answer_r))
+			if str(questions[br].answer_r) in request.POST:
 					results += 1
 					all_wrong = 0
-
 			else:
-			#	print("Wrongs when appending: " + str(wrongs))
 				wrongs = wrongs + '  ' + str(br)
 				len_wrongs = len(wrongs)
 				print("Wrongs after append: " + str(wrongs))
@@ -191,7 +187,7 @@ def solveNextQuestions(request):
 			return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "len_wrongs" : len_wrongs})
 
 		else:
-			if str(request.POST.get('answer_right', '')) == str(questions[br-1].answer_r):
+			if str(questions[br-1].answer_r) in request.POST:
 				results += 1
 				all_wrong = 0
 			else:
@@ -212,10 +208,12 @@ def deleteTests(request):
 	else:
 		names = [test.name for test in Test.objects.all()]
 		users = list()
+		subjects = list()
 		tests = Test.objects.all()
 		for i in range(len(names)):
 			users.append(tests[i].user)
+			subjects.append(tests[i].subject)
 		len1 = len(tests)
 		len_list = list(range(len1))
 		print(len_list)
-		return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'len1' : len_list})
+		return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'subjects' : subjects, 'len1' : len_list})
