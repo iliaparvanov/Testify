@@ -1,0 +1,13 @@
+---
+- name: check if repo exists
+  stat: path=/home/Testify
+  register: repo_present
+
+# - debug: var=repo_present
+
+- name: delete existing repo
+  file: path=/home/Testify state=absent
+  when: repo_present.stat.exists == true
+
+- name: clone Testify
+  git: repo="{{ git_repository }}" dest=/home/Testify clone=yes

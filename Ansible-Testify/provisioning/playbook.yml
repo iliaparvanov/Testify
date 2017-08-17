@@ -13,10 +13,10 @@
   gather_facts: False
   roles:
     - iliapa.python2
-    - iliapa.pkgs
-    - role: iliapa.clone-rep
+    - iliapa.pkgs_app
+    - role: iliapa.clone-rep_app
       git_repository: https://github.com/iliapa1/Testify.git
-    - iliapa.pip-requirements 
+    - iliapa.pip-requirements_app 
     - iliapa.service-start
     
 - hosts: db_containers
@@ -24,8 +24,10 @@
   gather_facts: False
   roles:
     - iliapa.python2
-    - iliapa.pkgs
-    - iliapa.pip-requirements
+    - iliapa.pkgs_db
+    - role: iliapa.clone-rep_db
+      git_repository: https://github.com/iliapa1/Testify.git
+    - iliapa.pip-requirements_db
     - role: iliapa.mariadb
       database_name: Testify
       database_user: Testifyuser
