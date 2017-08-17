@@ -1,0 +1,26 @@
+---
+- name: Install some dependencies for libmysqlclient-dev
+  raw: apt-get install software-properties-common && apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xcbcb082a1bb943db && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.netinch.com/pub/mariadb/repo/10.0/debian jessie main' && apt -y update
+
+  
+- name: Install required packages
+  apt: name="{{ item }}" state=present update_cache=yes
+  with_items:
+    - git
+    - python3
+    - python3-pip
+    - python3-dev
+    - mariadb-server
+    - libmariadbclient-dev
+    - libssl-dev
+    - python-mysqldb
+
+  
+
+#- name: Add Heroku repo
+#  apt_repository: repo='deb https://cli-assets.heroku.com/branches/stable/#apt deb http://mirror.netinch.com/pub/mariadb/repo/10.0/debian  jessie main ./' state=present filename='heroku' update_cache='yes'
+#- name: Some Heroku-related bs
+#  raw: curl -L https://cli-assets.heroku.com/apt/release.key | sudo apt-key #add -
+#- name: Install Heroku
+#  apt: name=heroku yes=present update_cache=yes
+

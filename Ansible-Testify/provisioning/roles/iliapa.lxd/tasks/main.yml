@@ -16,7 +16,6 @@
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
-# make one more 
   with_items:
      - Testify1
      - Testify2
@@ -56,7 +55,7 @@
     - 1
 
 
-- name: Register the hostsjust_created in the group db
+- name: Register the hosts in the group db
   add_host: 
     name: "{{ containers_info_db.results[item].addresses.eth0[0] }}"
     ansible_ssh_private_key_file: /root/ssh/id_rsa_ansible
