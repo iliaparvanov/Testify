@@ -27,8 +27,7 @@
     - nginx
   
 
-  async: 400
-  poll: 30
+
 
 #- name: Add Heroku repo
 #  apt_repository: repo='deb https://cli-assets.heroku.com/branches/stable/#apt deb http://mirror.netinch.com/pub/mariadb/repo/10.0/debian  jessie main ./' state=present filename='heroku' update_cache='yes'

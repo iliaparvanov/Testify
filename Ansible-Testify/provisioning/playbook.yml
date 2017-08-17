@@ -8,16 +8,16 @@
     - iliapa.lxd
 
 
-- hosts: app_containers
-  become: true
-  gather_facts: False
-  roles:
-    - iliapa.python2
-    - iliapa.pkgs_app
-    - role: iliapa.clone-rep_app
-      git_repository: https://github.com/iliapa1/Testify.git
-    - iliapa.pip-requirements_app 
-    - iliapa.service-start
+#- hosts: app_containers
+ # become: true
+ # gather_facts: False
+ # roles:
+  #  - iliapa.python2
+   # - iliapa.pkgs_app
+   # - role: iliapa.clone-rep_app
+    #  git_repository: https://github.com/iliapa1/Testify.git
+   # - iliapa.pip-requirements_app 
+   # - iliapa.service-start
     
 - hosts: db_containers
   become: true
