@@ -8,7 +8,7 @@
     - iliapa.lxd
 
 
-- hosts: all
+- hosts: app_cotainers
   become: true
   gather_facts: False
   roles:
@@ -16,14 +16,21 @@
     - iliapa.pkgs
     - role: iliapa.clone-rep
       git_repository: https://github.com/iliapa1/Testify.git
+    - iliapa.pip-requirements 
+    - iliapa.service-start
+    
+- hosts: db_containers
+  become: true
+  gather_facts: False
+  roles:
+    - iliapa.python2
+    - iliapa.pkgs
     - iliapa.pip-requirements
     - role: iliapa.mariadb
       database_name: Testify
       database_user: Testifyuser
       database_password: bananas
-    - iliapa.service-start
     
-
 
   
 
