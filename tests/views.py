@@ -107,12 +107,12 @@ def addNextQuestions(request):
 		q_num = int(q_num)
 		a_num = request.POST.get('a_num', '')
 		a_num = list(range(int(len(a_num)/3)))
-		if not q_num or not a_num:
+		if not q_num or not a_num or not answer_r:
 			alert = "One or more fields are empty"
 			return render(request, 'tests/addQuestion.html', {'name' : request.POST.get('name', ''), 'q_num' : q_num, 'a_num' : a_num, "alert" : alert})
 
 		if int(answer_r) > int(len(a_num)) or int(answer_r) < 1:
-			return HttpResponse("Right answer invalid")
+			return HttpResponse("You did not select correct answer")
 		question_o = Questions(name=test, question=question, answer_r=answer_r)
 		question_o.save()
 
