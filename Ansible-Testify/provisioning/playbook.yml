@@ -8,7 +8,7 @@
     - iliapa.lxd
 
 
-- hosts: app_cotainers
+- hosts: app_containers
   become: true
   gather_facts: False
   roles:
