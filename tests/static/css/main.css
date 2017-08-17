@@ -3343,7 +3343,7 @@ Nav
 		@media screen and (max-width: 736px) {
 
 			#nav {
-				display: inline-block;
+				display: none;
 			}
 
 				#nav + #main {
