@@ -12,7 +12,7 @@
       type: image
       mode: pull
       protocol: lxd
-      alias: Base1
+      alias: Image
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600

@@ -7,10 +7,10 @@
   file: path=/home/Image state=directory
   when: image_present.stat.exists == false
 
-- name: Download imagehttps://www.dropbox.com/s/d2cihhwacacl0g1/b73a1e0c1d7591e44c9e8fdd047eac8957ecfca197d33ef2af7db3cdb22eba1c.tar.gz?dl=1
-  raw: cd /home/Image && wget 
+- name: Download image
+  raw: cd /home/Image && wget https://www.dropbox.com/s/d2cihhwacacl0g1/b73a1e0c1d7591e44c9e8fdd047eac8957ecfca197d33ef2af7db3cdb22eba1c.tar.gz?dl=0
   when: image_present.stat.exists == false
 
 - name: import image
-  raw: cd /home/Image && lxc image import b73a1e0c1d7591e44c9e8fdd047eac8957ecfca197d33ef2af7db3cdb22eba1c.tar.gz?dl=1 --alias Base1 
+  raw: cd /home/Image && lxc image import b73a1e0c1d7591e44c9e8fdd047eac8957ecfca197d33ef2af7db3cdb22eba1c.tar.gz?dl=0 --alias Base1
   when: image_present.stat.exists == false

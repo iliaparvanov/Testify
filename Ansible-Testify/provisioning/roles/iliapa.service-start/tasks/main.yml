@@ -1,10 +1,12 @@
 ---
-- name: enable service testify
-  raw: ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/ &&  systemctl restart nginx
-  systemd:
-    
-    name: testify
-    enabled: yes
- 
 
+#- name: link and restart ngnix
+ # raw: ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/ &&  systemctl restart nginx
+
+
+- name: restart service cron on centos, in all cases, also issue daemon-reload to pick up config changes
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: testify
 
