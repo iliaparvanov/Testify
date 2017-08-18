@@ -23,15 +23,15 @@
   become: true
   gather_facts: False
   roles:
-    - iliapa.python2
-    - iliapa.pkgs_db
-    - role: iliapa.clone-rep_db
-      git_repository: https://github.com/iliapa1/Testify.git
-    - iliapa.pip-requirements_db
-    - role: iliapa.mariadb_db
-      database_name: Testify
-      database_user: Testifyuser
-      database_password: bananas
+    - iliapa.python2_db
+#    - iliapa.pkgs_db
+ #   - role: iliapa.clone-rep_db
+  #    git_repository: https://github.com/iliapa1/Testify.git
+  #  - iliapa.pip-requirements_db
+   # - role: iliapa.mariadb_db
+   #   database_name: Testify
+    #  database_user: Testifyuser
+     # database_password: bananas
     
 
   
