@@ -48,7 +48,6 @@ def solveChooseCategory(request):
 def solveChooseTest(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
-
 	names_and_users = list()
 	users = list()
 	tests = Test.objects.all().filter(subject=subjects)
@@ -107,12 +106,12 @@ def addNextQuestions(request):
 		q_num = int(q_num)
 		a_num = request.POST.get('a_num', '')
 		a_num = list(range(int(len(a_num)/3)))
-		if not q_num or not a_num:
+		if not q_num or not a_num or not answer_r:
 			alert = "One or more fields are empty"
 			return render(request, 'tests/addQuestion.html', {'name' : request.POST.get('name', ''), 'q_num' : q_num, 'a_num' : a_num, "alert" : alert})
 
 		if int(answer_r) > int(len(a_num)) or int(answer_r) < 1:
-			return HttpResponse("Right answer invalid")
+			return HttpResponse("You did not select correct answer")
 		question_o = Questions(name=test, question=question, answer_r=answer_r)
 		question_o.save()
 
@@ -135,7 +134,6 @@ def solveFirstQuestion(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
 		test = Test.objects.get(name=name)
-
 		questions = Questions.objects.filter(name=test)
 		br = 0
 		results = 0
@@ -152,12 +150,7 @@ def solveNextQuestions(request):
 		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
 		len_wrongs = request.POST.get('len_wrongs', '')
-		# len_wrongs = int(len_wrongs)
-		# wrongs = list()
-		# for n in range(len_wrongs):
-		# 	wrongs.append(request.POST.get('i', ''))
 		wrongs = request.POST.get('wrongs', '')
-		print("Wrongs in the beginning: " + str(wrongs))
 		br = request.POST.get('br', '')
 		br = int(br)
 		results = request.POST.get('results', '')
@@ -165,33 +158,22 @@ def solveNextQuestions(request):
 		all_wrong = request.POST.get('all_wrong', '')
 		all_wrong = int(all_wrong)
 
-#TO DO: WRONGS
+#TO DO: WRONGS IN DATABASE
 		if br < len(questions):
 			if br == 0:
 				br += 1
 
 			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
-			if not str(request.POST.get('answer_right', '')):
-				alert = "Field for right answer empty"
-				# if br == 1:
-				# 	return render(request, 'tests/testSolving.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert})
-				# else:
-				return render(request, 'tests/solveQuestion.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : Answers.objects.filter(question=questions[br-1]).order_by('pk'), 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert, "len_wrongs" : len_wrongs})
-
-			if str(request.POST.get('answer_right', '')) == str(questions[br].answer_r):
+			if str(questions[br].answer_r) in request.POST:
 					results += 1
 					all_wrong = 0
-
 			else:
-			#	print("Wrongs when appending: " + str(wrongs))
 				wrongs = wrongs + '  ' + str(br)
 				len_wrongs = len(wrongs)
-				print("Wrongs after append: " + str(wrongs))
-
 			return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "len_wrongs" : len_wrongs})
 
 		else:
-			if str(request.POST.get('answer_right', '')) == str(questions[br-1].answer_r):
+			if str(questions[br-1].answer_r) in request.POST:
 				results += 1
 				all_wrong = 0
 			else:
@@ -212,10 +194,12 @@ def deleteTests(request):
 	else:
 		names = [test.name for test in Test.objects.all()]
 		users = list()
+		subjects = list()
 		tests = Test.objects.all()
 		for i in range(len(names)):
 			users.append(tests[i].user)
+			subjects.append(tests[i].subject)
 		len1 = len(tests)
 		len_list = list(range(len1))
 		print(len_list)
-		return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'len1' : len_list})
+		return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'subjects' : subjects, 'len1' : len_list})

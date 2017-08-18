@@ -63,11 +63,6 @@ MIDDLEWARE_CLASSES = [
 
 
 TEMPLATES = [
-
-
-
-
-
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
@@ -97,10 +92,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Testify',
-	    'USER': 'Testifyuser',
+	    'USER': 'db_user',
 	    'PASSWORD': 'bananas',
-	    'HOST': 'localhost',
-	    'PORT': '',
+	    'HOST': '10.50.241.27',
+	    'PORT': '3306',
     }
 }
 
@@ -142,8 +137,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/home/Testify/tests/static/',

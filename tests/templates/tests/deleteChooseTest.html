@@ -10,7 +10,7 @@
             {% if tests %}
                 {% for i in len1 %}
 
-                <option type='text' name="test"  id="test" value='{{ tests|return_item:i }}' style="color: black" />{{ tests|return_item:i }} - (by {{ users|return_item:i }})
+                <option type='text' name="test"  id="test" value='{{ tests|return_item:i }}' style="color: black" />{{ subjects|return_item:i }}: {{ tests|return_item:i }} - (by {{ users|return_item:i }})
 
                 {% endfor %}
 
