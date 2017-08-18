@@ -5,11 +5,10 @@
 
 
 <div style='margin-top:6em;' id='Main'>
-    <form action=/solve-next-questions/ method="post">
+    <form action=/see-mistakes/ method="post">
         <p style="color: firebrick; font-size: 30px">{{ alert }}</p>
     	<input type="hidden" name="tests" value="{{ tests }}" id="tests">
        	<input type="hidden" name="br" value="{{ br }}" id="br">
-      	<input type="hidden" name="one_wrong" value="{{ one_wrong }}" id="one_wrong">
         <input type="hidden" name="results" value="{{ results }}" id="results">
         <!-- <input type="hidden" name="len_wrongs" value="{{ len_wrongs }}" id="len_wrongs">
         {% for n in wrongs %}
@@ -25,7 +24,6 @@
             <input type="submit" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}">
             {% endfor %}
         </div>
-
     </form>
 </div>
 

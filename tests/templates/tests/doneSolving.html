@@ -5,9 +5,15 @@
 <div style='margin-top:6em;' id='Main'>
 <!-- <div style='margin-left: 250px; margin-top: 100px; font-size: 50px' id="Main"> -->
     {% if all_wrong %}
-        <p style="font-size:32px; font-weight:bold; margin-bottom: 1em;">You got 0 of {{ max }}!</p><p style="font-size:26px">You answered wrong to questions: {{ wrongs }}</p>
+        <p style="font-size:32px; font-weight:bold; margin-bottom: 1em;">You got 0 of {{ max }}!</p>
     {% else %}
-        <p style="font-size:32px; font-weight:bold; margin-bottom: 1em;">Congratulations, you got {{ results }} of {{ max }}!</p><p style="font-size:26px">You answered wrong to questions: {{ wrongs }}</p>
+        <p style="font-size:32px; font-weight:bold; margin-bottom: 1em;">Congratulations, you got {{ results }} of {{ max }}!</p>
+    {% endif %}
+    {% if one_wrong %}
+    <form action=/see-mistakes/ method="post">
+        <p style="font-size:26px">You answered wrong to question(s): {{ wrongs }}</p>
+        <input name="button_mistakes"  type="submit" value="Click here to see your mistakes(in development)" id="button_mistakes">
+    </form>
     {% endif %}
 </div>
 
