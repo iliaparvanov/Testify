@@ -48,7 +48,6 @@ def solveChooseCategory(request):
 def solveChooseTest(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
-
 	names_and_users = list()
 	users = list()
 	tests = Test.objects.all().filter(subject=subjects)
@@ -135,7 +134,6 @@ def solveFirstQuestion(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
 		test = Test.objects.get(name=name)
-
 		questions = Questions.objects.filter(name=test)
 		br = 0
 		results = 0
@@ -152,10 +150,6 @@ def solveNextQuestions(request):
 		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
 		len_wrongs = request.POST.get('len_wrongs', '')
-		# len_wrongs = int(len_wrongs)
-		# wrongs = list()
-		# for n in range(len_wrongs):
-		# 	wrongs.append(request.POST.get('i', ''))
 		wrongs = request.POST.get('wrongs', '')
 		br = request.POST.get('br', '')
 		br = int(br)
@@ -164,26 +158,18 @@ def solveNextQuestions(request):
 		all_wrong = request.POST.get('all_wrong', '')
 		all_wrong = int(all_wrong)
 
-#TO DO: WRONGS
+#TO DO: WRONGS IN DATABASE
 		if br < len(questions):
 			if br == 0:
 				br += 1
 
 			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
-			# if not str(request.POST.get('answer_right', '')):
-			# 	alert = "Field for right answer empty"
-			# 	return render(request, 'tests/solveQuestion.html', {'questions' : questions[br - 1].question, 'tests' : name, 'br' : br, 'answers' : Answers.objects.filter(question=questions[br-1]).order_by('pk'), 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "alert" : alert, "len_wrongs" : len_wrongs})
-
-#EDIT THIS !
-			print('Answer_r in db:' + str(questions[br].answer_r))
 			if str(questions[br].answer_r) in request.POST:
 					results += 1
 					all_wrong = 0
 			else:
 				wrongs = wrongs + '  ' + str(br)
 				len_wrongs = len(wrongs)
-				print("Wrongs after append: " + str(wrongs))
-
 			return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "len_wrongs" : len_wrongs})
 
 		else:
