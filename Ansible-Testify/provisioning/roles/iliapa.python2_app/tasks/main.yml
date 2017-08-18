@@ -1,0 +1,14 @@
+---
+- name: install python
+  raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+- name: check python is installed in container
+  raw: dpkg -s python
+  register: python_install_check
+  failed_when: python_install_check.rc not in [0, 1]
+  changed_when: false
+
+- name: install python in container
+  raw: apt-get install -y python
+  when: python_install_check.rc == 1
+
