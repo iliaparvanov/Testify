@@ -15,7 +15,7 @@
 
 - name: change ip
   template:
-    src: /home/Testify/Ansible-Testify/provisioning/roles/iliapa.python2_db/templates/50-cloud-init.cfg 
-    dest: /etc/network/interfaces.d/50-cloud-init.cfg
+    src: templates/50-cloud-init.cfg 
+    dest: /etc/network/interfaces.d/
     owner: root
     group: root  
