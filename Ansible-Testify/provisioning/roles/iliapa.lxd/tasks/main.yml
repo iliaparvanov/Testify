@@ -6,7 +6,7 @@
 
 - name: Create a started container for app
   lxd_container:
-    name: "{{ item }}"
+    name: Testify
     state: started
     source:
       type: image
@@ -16,12 +16,16 @@
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
-  with_items:
-     - Testify1
-     - Testify2
+    config: 
+      type: physical
+      name: eth0
+      subnets:
+        type: static
+        ipv4: true
+        address: ["10.10.10.10"]
+        control: auto
   register: containers_info_app
-
-
+  
 - name: Create a started container for db
   lxd_container:
     name: "{{ item }}"
