@@ -1,0 +1,21 @@
+---
+
+- name: check if nginx is linked
+  stat: 
+    path: /etc/nginx/sites-enabled/mysite_nginx.conf
+  register: link
+
+- debug:
+    msg: link
+
+- name: link nginx
+  raw: sudo ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/
+  when: link.stat.exists == false
+- name: restart apps
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: testify
+
+
+

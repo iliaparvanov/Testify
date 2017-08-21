@@ -6,6 +6,6 @@
 - name: Create project DB
   mysql_db: name="{{ database_name }}" state=present
 - name: Create project DB user
-  mysql_user: name="{{ database_user }}" host=localhost password="{{ database_password }}" priv=Testify.*:ALL
+  mysql_user: name="{{ database_user }}" host=% password="{{ database_password }}" priv=Testify.*:ALL
 
 

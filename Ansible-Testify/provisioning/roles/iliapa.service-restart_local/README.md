@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Configure a database for Testify.
+Create a started lxd container, add it to hosts and establish an ssh connection to it.
 
 Requirements
 ------------
