@@ -3,11 +3,14 @@
 #- name: link and restart ngnix
  # raw: ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/ &&  systemctl restart nginx
 
+- name: link nginx
+  raw: sudo ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/
 
 - name: restart apps
   systemd:
     state: restarted
     daemon_reload: yes
     name: testify
+
 
 
