@@ -138,11 +138,12 @@ def solveFirstQuestion(request):
 		br = 0
 		results = 0
 		all_wrong = 1
+		one_wrong = 0
 		wrongs = ''
 		len_wrongs = len(wrongs)
 		answers = Answers.objects.filter(question=questions[br]).order_by('pk')
 
-		return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'wrongs' : wrongs, 'results' : results, 'all_wrong' : all_wrong, 'len_wrongs' : len_wrongs})
+		return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br, 'answers' : answers, 'wrongs' : wrongs, 'results' : results, 'all_wrong' : all_wrong, 'one_wrong' : one_wrong, 'len_wrongs' : len_wrongs})
 
 def solveNextQuestions(request):
 	if request.method == 'POST':
@@ -157,6 +158,12 @@ def solveNextQuestions(request):
 		results = int(results)
 		all_wrong = request.POST.get('all_wrong', '')
 		all_wrong = int(all_wrong)
+		one_wrong = request.POST.get('one_wrong', '')
+		one_wrong = int(one_wrong)
+		current_user = request.user
+		name = request.POST.get('name', '')
+		q_num = request.POST.get('q_num', '')
+		a_num = request.POST.get('a_num', '')
 
 #TO DO: WRONGS IN DATABASE
 		if br < len(questions):
@@ -168,20 +175,24 @@ def solveNextQuestions(request):
 					results += 1
 					all_wrong = 0
 			else:
+				m = Mistakes(user=request.user, name=name, answer_w=request.POST.get('', ''))
 				wrongs = wrongs + '  ' + str(br)
 				len_wrongs = len(wrongs)
-			return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, "wrongs" : wrongs, "len_wrongs" : len_wrongs})
+				one_wrong = 1
+			return render(request, 'tests/solveQuestion.html', {'questions' : questions[br].question, 'tests' : name, 'br' : br + 1, 'answers' : answers, 'results' : results, "all_wrong" : all_wrong, 'one_wrong' : one_wrong, "wrongs" : wrongs, "len_wrongs" : len_wrongs})
 
 		else:
 			if str(questions[br-1].answer_r) in request.POST:
 				results += 1
 				all_wrong = 0
 			else:
+				m = Mistakes(user=request.user, name=name, answer_w=request.POST.get('', ''))
 				wrongs = wrongs + ' ' + str(br)
 				len_wrongs = len(wrongs)
+				one_wrong = 1
 				print("Wrongs after append: " + str(wrongs))
 			wrongs = wrongs[1:]
-			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong})
+			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong, 'one_wrong' : one_wrong})
 
 @permission_required('tests.can_delete', raise_exception=True)
 def deleteTests(request):
@@ -203,3 +214,14 @@ def deleteTests(request):
 		len_list = list(range(len1))
 		print(len_list)
 		return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'subjects' : subjects, 'len1' : len_list})
+
+@login_required
+def seeMistakes(request):
+	if request.method == 'POST':
+		name = request.POST.get('tests', '')
+		test = Test.objects.get(name=name)
+
+		return render(request, 'tests/seeMistakes.html', {})
+	else:
+
+		return render(request, 'tests/seeMistakes.html', {})
