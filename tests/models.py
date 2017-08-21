@@ -42,8 +42,8 @@ class Answers(models.Model):
 class Mistakes(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	name = models.ForeignKey(Test, on_delete = models.CASCADE)
+	answer = models.ForeignKey(Answers, on_delete = models.CASCADE)
 	answer_w = models.CharField(max_length=1000)
-
 	def __str__(self):
 		return str(self.answer)
 

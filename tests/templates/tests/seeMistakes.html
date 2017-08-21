@@ -23,6 +23,7 @@
             <label style="margin-top: 20px;" for="checkbox_id{{ i }}">Answer {{ forloop.counter }}</label>
             <input type="submit" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}">
             {% endfor %}
+            <p style="color: firebrick; font-size: 30px">{{ mistake }}</p>
         </div>
     </form>
 </div>
