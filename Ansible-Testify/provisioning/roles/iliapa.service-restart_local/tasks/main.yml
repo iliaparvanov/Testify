@@ -1,0 +1,11 @@
+---
+
+#- name: link and restart ngnix
+ # raw: ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/ &&  systemctl restart nginx
+
+
+- name: restart db
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: haproxy

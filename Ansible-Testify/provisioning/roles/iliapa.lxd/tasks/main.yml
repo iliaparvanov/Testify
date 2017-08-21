@@ -10,7 +10,7 @@
       type: image
       mode: pull
       protocol: lxd
-      alias: Image
+      alias: Base1
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
@@ -28,7 +28,7 @@
       type: image
       mode: pull
       protocol: lxd
-      alias: Image
+      alias: Base1
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
@@ -38,37 +38,13 @@
   register: containers_info_db
 
 
-- name: Wait for the network to be setup in the containers
-  when: containers_info_app|changed
-  pause: seconds=10
+
 
 - name: Wait for the network to be setup in the containers
   pause: seconds=10
 
-- name: Restart a container
-  lxd_container:
-    name: Mariadb1
-    state: restarted
 
-- name: Wait for restart
-  pause: seconds=20
 
-- name: register again
-  lxd_container:
-    name: "{{ item }}"
-    state: started
-    source:
-      type: image
-      mode: pull
-      protocol: lxd
-      alias: Image
-    profiles: ["default"]
-    wait_for_ipv4_addresses: true
-    timeout: 600
-# make one more
-  with_items:
-     - Mariadb1
-  register: containers_info_db
 
 
 - name: Register the hosts in the group app
