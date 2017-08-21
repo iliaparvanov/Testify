@@ -28,10 +28,10 @@
     # - role: iliapa.clone-rep_db
     #   git_repository: https://github.com/iliapa1/Testify.git
     # - iliapa.pip-requirements_db
-    # - role: iliapa.mariadb_db
-    #   database_name: Testify
-    #   database_user: db_user
-    #   database_password: bananas
+     - role: iliapa.mariadb_db
+       database_name: Testify
+       database_user: db_user
+       database_password: bananas
     # - iliapa.service-restart_db
 
 - hosts: localhost
