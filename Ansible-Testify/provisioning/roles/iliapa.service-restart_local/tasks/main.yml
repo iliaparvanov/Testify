@@ -1,11 +1,11 @@
 ---
 
-- name: set haproxy
-  template:
-    src: templates/haproxy.cfg 
-    dest: /etc/haproxy/
-    owner: root
-    group: root  
+# - name: set haproxy
+#   template:
+#     src: templates/haproxy.cfg
+#     dest: /etc/haproxy/
+#     owner: root
+#     group: root
 
 - name: restart haproxy
   systemd:
