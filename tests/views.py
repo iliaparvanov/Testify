@@ -161,7 +161,6 @@ def solveNextQuestions(request):
 		one_wrong = request.POST.get('one_wrong', '')
 		one_wrong = int(one_wrong)
 		current_user = request.user
-		name = request.POST.get('name', '')
 		q_num = request.POST.get('q_num', '')
 		a_num = request.POST.get('a_num', '')
 
@@ -175,7 +174,12 @@ def solveNextQuestions(request):
 					results += 1
 					all_wrong = 0
 			else:
-				m = Mistakes(user=request.user, name=name, answer_w=request.POST.get('', ''))
+				post_data = request.POST.dict()
+				for k, v in post_data.items():
+					if k.isdigit():
+						mistake = k
+				m = Mistakes(user=request.user, name=test, answer_w=mistake)
+				m.save()
 				wrongs = wrongs + '  ' + str(br)
 				len_wrongs = len(wrongs)
 				one_wrong = 1
@@ -186,13 +190,18 @@ def solveNextQuestions(request):
 				results += 1
 				all_wrong = 0
 			else:
-				m = Mistakes(user=request.user, name=name, answer_w=request.POST.get('', ''))
+				post_data = request.POST.dict()
+				for k, v in post_data.items():
+					if k.isdigit():
+						mistake = k
+				m = Mistakes(user=request.user, name=test, answer_w=mistake)
+				m.save()
 				wrongs = wrongs + ' ' + str(br)
 				len_wrongs = len(wrongs)
 				one_wrong = 1
-				print("Wrongs after append: " + str(wrongs))
+
 			wrongs = wrongs[1:]
-			return render(request, 'tests/doneSolving.html', {'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong, 'one_wrong' : one_wrong})
+			return render(request, 'tests/doneSolving.html', {'tests' : name, 'results' : results, "max" : len(questions), 'wrongs' : wrongs, "all_wrong" : all_wrong, 'one_wrong' : one_wrong})
 
 @permission_required('tests.can_delete', raise_exception=True)
 def deleteTests(request):
@@ -212,16 +221,18 @@ def deleteTests(request):
 			subjects.append(tests[i].subject)
 		len1 = len(tests)
 		len_list = list(range(len1))
-		print(len_list)
 		return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'subjects' : subjects, 'len1' : len_list})
 
 @login_required
 def seeMistakes(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
+		print('Name: ' + name)
 		test = Test.objects.get(name=name)
-
-		return render(request, 'tests/seeMistakes.html', {})
+		temp_mistake = Mistakes.objects.filter(user=request.user)
+		mistake = temp_mistake.get(name=test)
+		print('Answer_w: ' + mistake.answer_w)
+		return render(request, 'tests/seeMistakes.html', {'mistake' : mistake.answer_w})
 	else:
 
 		return render(request, 'tests/seeMistakes.html', {})
