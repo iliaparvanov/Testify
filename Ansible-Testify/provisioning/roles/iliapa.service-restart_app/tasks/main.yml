@@ -12,7 +12,14 @@
   raw: sudo ln -s /home/Testify/mysite_nginx.conf /etc/nginx/sites-enabled/
   when: link.stat.exists == false
 
-- name: restart apps
+
+- name: restart nginx
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: nginx
+
+- name: restart app
   systemd:
     state: restarted
     daemon_reload: yes
