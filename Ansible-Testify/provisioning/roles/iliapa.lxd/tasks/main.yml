@@ -53,7 +53,7 @@
     name: "{{ containers_info_app.results[item].addresses.eth0[0] }}"
     ansible_ssh_private_key_file: /root/ssh/id_rsa_ansible
     ansible_ssh_common_argsjust_created: "-o UserKnownHostsFile=/dev/null"
-    groups: app_container
+    groups: app_containers
   with_items:
     - 0
     - 1
