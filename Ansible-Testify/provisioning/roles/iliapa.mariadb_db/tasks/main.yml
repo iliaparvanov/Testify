@@ -1,4 +1,8 @@
 ---
+- name: change bind address
+  raw: sudo sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf 
+  
+
 - name: Rm anon user
   mysql_user: name="" state=absent
 - name: Rm test DB
