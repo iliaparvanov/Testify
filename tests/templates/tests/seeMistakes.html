@@ -20,14 +20,18 @@
 
         <div style='margin-top: 20px;'>
             {% for i in answers %}
+                <label for="checkbox_id{{ i }}">Answer {{ forloop.counter }}</label>
+            	
                 {% if answer_w == forloop.counter %}
-                <p style="font-size: 20px; margin-top: 1em; color: firebrick;">You answered:</p>
+                <!-- <p style="font-size: 20px; margin-top: 1em; color: firebrick;">You answered:</p> -->
+                <input style="color: firebrick" type="text" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}" readonly>
                 {% endif %}
                 {% if answer_r == forloop.counter %}
-                <p style="font-size: 20px; margin-top: 1em; color: green;">Correct asnwer:</p>
+                <input style="color: green" type="text" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}" readonly>
+                {% else %}
+                <input type="text" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}" readonly>
                 {% endif %}
-            <label for="checkbox_id{{ i }}">Answer {{ forloop.counter }}</label>
-            <input type="text" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}" readonly>
+            	
             {% endfor %}
             <p><input style="margin-top: 1em;" type="submit" value="Next" id="Next"></p>
         </div>
