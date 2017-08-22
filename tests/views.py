@@ -4,9 +4,10 @@ from .forms import *
 from .models import *
 from . import *
 from django.conf import settings
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 
 
 class QueryExceptionError(Exception):
@@ -15,6 +16,23 @@ class QueryExceptionError(Exception):
 
 def index(request):
     return render(request, 'tests/home.html')
+
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return render(request, 'tests/home.html')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'registration/password_change.html', {
+        'form': form
+    })
 
 def signup(request):
 	if request.method == 'POST':

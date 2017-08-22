@@ -43,13 +43,13 @@
             <li><a href="/create-test">Creating tests</a></li>
             <li><a href="/solve-choose-category">Solving tests</a></li>
             <li><a href="/delete-tests">Deleting tests</a></li>
-						<li><a href="/">Logged in as: {{ user.username }}</a></li>
+						<li><a href="/password-change">Logged in as: {{ user.username }}</a></li>
             {% else %}
             <li><a href="/">Introduction</a></li>
             <li><a href="/logout">Log out</a></li>
             <li><a href="/create-test">Creating tests</a></li>
             <li><a href="/solve-choose-category">Solving tests</a></li>
-						<li><a href="/">Logged in as: {{ user.username }}</a></li>
+						<li><a href="/password-change">Logged in as: {{ user.username }}</a></li>
             {% endif %}
           </ul>
         </nav>
