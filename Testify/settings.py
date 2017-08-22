@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': 'Testify',
 	    'USER': 'db_user',
 	    'PASSWORD': 'bananas',
-	    'HOST': '10.50.241.10',
+	    'HOST': '10.50.241.1',
 	    'PORT': '3306',
     }
 }
