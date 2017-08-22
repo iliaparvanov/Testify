@@ -1,0 +1,7 @@
+---
+- name: change ip
+  template:
+    src: templates/50-cloud-init.cfg
+    dest: /etc/network/interfaces.d/
+    owner: root
+    group: root

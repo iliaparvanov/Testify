@@ -12,23 +12,24 @@
   become: true
   gather_facts: False
   roles:
-     - iliapa.python2_app
+     - iliapa.python2
      - iliapa.pkgs_app
      - role: iliapa.clone-rep_app
        git_repository: https://github.com/iliapa1/Testify.git
-     - iliapa.pip-requirements_app 
+     - iliapa.pip-requirements_app
      - iliapa.service-restart_app
 
 - hosts: db_containers
   become: true
   gather_facts: False
   roles:
-     - iliapa.python2_db
+     - iliapa.python2
+     - iliapa.change_ip
      - iliapa.pkgs_db
      - role: iliapa.clone-rep_db
        git_repository: https://github.com/iliapa1/Testify.git
      - iliapa.pip-requirements_db
-     - role: iliapa.mariadb_db
+     - role: iliapa.mariadb
        database_name: Testify
        database_user: db_user
        database_password: bananas
@@ -39,17 +40,3 @@
   become: true
   roles:
     - iliapa.service-restart_local
-
-
-
-    
-
-  
-
-
-
-
- 
-
-
-

@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Make sure Python 2.7 is installed on target machine so that Ansible can connect to it. In addition, install some other dependencies.
+A brief description of the role goes here.
 
 Requirements
 ------------
