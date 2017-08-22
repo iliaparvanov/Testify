@@ -48,7 +48,6 @@ def solveChooseCategory(request):
 def solveChooseTest(request):
 	subjects = request.POST.get('tests', '')
 	names = [test.name for test in Test.objects.all().filter(subject=subjects)]
-	names_and_users = list()
 	users = list()
 	tests = Test.objects.all().filter(subject=subjects)
 	for i in range(len(names)):
@@ -178,7 +177,7 @@ def solveNextQuestions(request):
 				for k, v in post_data.items():
 					if k.isdigit():
 						mistake = k
-				m = Mistakes(user=request.user, name=test, answer_w=mistake)
+				m = Mistakes(user=request.user, name=test, question=questions[br], answer_w=mistake)
 				m.save()
 				wrongs = wrongs + '  ' + str(br)
 				len_wrongs = len(wrongs)
@@ -194,7 +193,7 @@ def solveNextQuestions(request):
 				for k, v in post_data.items():
 					if k.isdigit():
 						mistake = k
-				m = Mistakes(user=request.user, name=test, answer_w=mistake)
+				m = Mistakes(user=request.user, name=test, question=questions[br-1], answer_w=mistake)
 				m.save()
 				wrongs = wrongs + ' ' + str(br)
 				len_wrongs = len(wrongs)
@@ -224,15 +223,42 @@ def deleteTests(request):
 		return render(request, 'tests/deleteChooseTest.html', {'tests' : tests, 'users' : users, 'subjects' : subjects, 'len1' : len_list})
 
 @login_required
+def seeFirstMistake(request):
+	if request.method == 'POST':
+		name = request.POST.get('tests', '')
+		test = Test.objects.get(name=name)
+		br = 0
+		temp_mistakes = Mistakes.objects.filter(user=request.user)
+		temp_mistakes2 = temp_mistakes.filter(name=test)
+		questions = [mistakes.question for mistakes in temp_mistakes2]
+		answers = Answers.objects.filter(question=questions[br]).order_by('pk')
+		answer_w = temp_mistakes2[br].answer_w
+		answer_r = questions[br].answer_r
+		return render(request, 'tests/seeMistakes.html', {'questions' : questions[br].question, 'answers' : answers, 'tests' : name, 'br' : br + 1, 'answer_w' : int(answer_w), 'answer_r' : int(answer_r)})
+
+@login_required
 def seeMistakes(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
-		print('Name: ' + name)
 		test = Test.objects.get(name=name)
-		temp_mistake = Mistakes.objects.filter(user=request.user)
-		mistake = temp_mistake.get(name=test)
-		print('Answer_w: ' + mistake.answer_w)
-		return render(request, 'tests/seeMistakes.html', {'mistake' : mistake.answer_w})
-	else:
+		br = request.POST.get('br', '')
+		br = int(br)
+		temp_mistakes = Mistakes.objects.filter(user=request.user)
+		temp_mistakes2 = temp_mistakes.filter(name=test)
+		print(len(temp_mistakes))
+		questions = [mistakes.question for mistakes in temp_mistakes2]
+		print("br: " + str(br))
+		print(len(questions))
+		if br < len(questions):
+			if br==0:
+				br+=1
 
-		return render(request, 'tests/seeMistakes.html', {})
+			answers = Answers.objects.filter(question=questions[br]).order_by('pk')
+			answer_w = temp_mistakes2[br].answer_w
+			answer_r = questions[br].answer_r
+			return render(request, 'tests/seeMistakes.html', {'questions' : questions[br].question, 'answers' : answers, 'tests' : name, 'br' : br + 1, 'answer_w' : int(answer_w), 'answer_r' : int(answer_r)})
+		else:
+			temp_mistakes = Mistakes.objects.filter(user=request.user)
+			mistakes = temp_mistakes.filter(name=test)
+			mistakes.delete()
+			return render(request, 'tests/doneSeeing.html')

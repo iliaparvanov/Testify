@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^add-first-question/', views.addFirstQuestion, name='addFirstQuestion'),
     url(r'^add-next-questions/', views.addNextQuestions, name='addNextQuestions'),
     url(r'^delete-tests/', views.deleteTests, name='deleteTests'),
+    url(r'^see-first-mistake/', views.seeFirstMistake, name='seeFirstMistake'),
     url(r'^see-mistakes/', views.seeMistakes, name='seeMistakes'),
 ]

@@ -1,0 +1,13 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+<!--TODO: FIX ALL LINKS/STATIC FILES-->
+<div style='margin-top:6em;' id='Main'>
+    <form action='/solve-choose-category/' method="post">
+    	{% csrf_token %}
+        <h2> These were all of your mistakes!</h2>
+        <input type="submit" value="Solve another test">
+    </form>
+</div>
+
+{% endblock %}

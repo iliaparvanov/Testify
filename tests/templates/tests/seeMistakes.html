@@ -14,16 +14,22 @@
         {% for n in wrongs %}
         <input type="hidden" name="wrongs" value="{{ n }}" id="wrongs">
         {% endfor %} -->
-        <input type="hidden" name="wrongs" value="{{ wrongs }}" id="wrongs">
-        <input type="hidden" name="all_wrong" value="{{ all_wrong }}" id="all_wrong">
-        <label for="question"> Question:</label><input type="text"  name="question"  id="question" value="{{ questions }}" readonly="True" />
+        <!-- <input type="hidden" name="wrongs" value="{{ wrongs }}" id="wrongs">
+        <input type="hidden" name="all_wrong" value="{{ all_wrong }}" id="all_wrong"> -->
+        <label for="question"> Question:</label><input type="text"  name="question"  id="question" value="{{ questions }}" readonly="True">
 
         <div style='margin-top: 20px;'>
             {% for i in answers %}
-            <label style="margin-top: 20px;" for="checkbox_id{{ i }}">Answer {{ forloop.counter }}</label>
-            <input type="submit" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}">
+                {% if answer_w == forloop.counter %}
+                <p style="font-size: 20px; margin-top: 1em; color: firebrick;">You answered:</p>
+                {% endif %}
+                {% if answer_r == forloop.counter %}
+                <p style="font-size: 20px; margin-top: 1em; color: green;">Correct asnwer:</p>
+                {% endif %}
+            <label for="checkbox_id{{ i }}">Answer {{ forloop.counter }}</label>
+            <input type="text" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}" readonly>
             {% endfor %}
-            <p style="color: firebrick; font-size: 30px">{{ mistake }}</p>
+            <p><input style="margin-top: 1em;" type="submit" value="Next" id="Next"></p>
         </div>
     </form>
 </div>

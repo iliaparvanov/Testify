@@ -10,7 +10,7 @@
         <p style="font-size:32px; font-weight:bold; margin-bottom: 1em;">Congratulations, you got {{ results }} of {{ max }}!</p>
     {% endif %}
     {% if one_wrong %}
-    <form action=/see-mistakes/ method="post">
+    <form action=/see-first-mistake/ method="post">
         <p style="font-size:26px">You answered wrong to question(s): {{ wrongs }}</p>
         <input type="hidden" name="tests" value="{{ tests }}" id="tests">
         <input name="button_mistakes"  type="submit" value="Click here to see your mistakes(in development)" id="button_mistakes">
