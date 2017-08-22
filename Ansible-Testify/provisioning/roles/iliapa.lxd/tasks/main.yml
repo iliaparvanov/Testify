@@ -10,7 +10,7 @@
       type: image
       mode: pull
       protocol: lxd
-      alias: Base1
+      alias: Image
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
@@ -29,7 +29,7 @@
       type: image
       mode: pull
       protocol: lxd
-      alias: Base1
+      alias: Image
     profiles: ["default"]
     wait_for_ipv4_addresses: true
     timeout: 600
@@ -54,7 +54,7 @@
     ansible_ssh_private_key_file: /root/ssh/id_rsa_ansible
     ansible_ssh_common_argsjust_created: "-o UserKnownHostsFile=/dev/null"
     groups: app_container
-  with_nested:
+  with_items:
     - 0
     - 1
 
