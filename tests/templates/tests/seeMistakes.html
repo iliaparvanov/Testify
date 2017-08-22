@@ -25,7 +25,6 @@
                 {% if answer_w == forloop.counter %}
                 <!-- <p style="font-size: 20px; margin-top: 1em; color: firebrick;">You answered:</p> -->
                 <input style="color: firebrick" type="text" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}" readonly>
-                {% endif %}
                 {% if answer_r == forloop.counter %}
                 <input style="color: green" type="text" name="{{ forloop.counter }}" id="checkbox_id{{ i }}" value="{{ i }}" readonly>
                 {% else %}
