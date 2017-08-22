@@ -13,6 +13,4 @@
   when: python_install_check.rc == 1
 
 
-    
-
 

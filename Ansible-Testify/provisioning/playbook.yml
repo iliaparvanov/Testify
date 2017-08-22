@@ -12,13 +12,13 @@
   become: true
   gather_facts: False
   roles:
-    # - iliapa.python2_app
+     - iliapa.python2_app
     # - iliapa.pkgs_app
     # - role: iliapa.clone-rep_app
     #   git_repository: https://github.com/iliapa1/Testify.git
     # - iliapa.pip-requirements_app 
-    - iliapa.service-restart_app
-    
+     - iliapa.service-restart_app
+
 - hosts: db_containers
   become: true
   gather_facts: False
