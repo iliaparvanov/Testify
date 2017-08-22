@@ -1,15 +1,21 @@
 ---
 - name: change bind address
-  raw: sudo sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf 
-  
+  raw: sudo sed -i "s/.*bind-address.*/bind-address = 0.0.0.0/" /etc/mysql/my.cnf   
 
 - name: Rm anon user
   mysql_user: name="" state=absent
+
 - name: Rm test DB
   mysql_db: name=test state=absent
+
 - name: Create project DB
   mysql_db: name="{{ database_name }}" state=present
+
 - name: Create project DB user
   mysql_user: name="{{ database_user }}" host=% password="{{ database_password }}" priv=Testify.*:ALL
 
+- name: migrate
+  raw: cd /home/Testify && python3 manage.py makemigrations && python3 manage.py migrate
 
+- name: remove rep
+  raw: cd /home && rm -rf Testify
