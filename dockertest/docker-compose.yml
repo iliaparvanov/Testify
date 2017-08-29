@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+  web:
+    image: test:1.0
+    env_file: env_web
+    command: ./wait_for_db.sh
+    ports:
+      - "8000:8000"
+    links:
+      - db
+    depends_on:
+      - db
