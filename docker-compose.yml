@@ -10,18 +10,24 @@ services:
       MYSQL_USER: Testifyuser
       MYSQL_PASSWORD: bananas
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./dbdata:/var/lib/mysql
 
   web:
     # Docker hack to wait until Postgres is up, then run stuff.
-    #command: bash -c "while ! nc -w 1 -z db 5432; do sleep 0.1; done; ./manage.py migrate; while :; do ./manage.py runserver_plus 0.0.0.0:8000; sleep 1; #done"
+    command: bash -c "while ! nc -w 1 -z db 3306; do sleep 0.1; done; ./manage.py migrate; while :; do ./manage.py runserver_plus 0.0.0.0:8000; sleep 1; done"
     image: testify:1.0
     build: .
-    command: python3 manage.py migrate
-    command: python3 manage.py runserver 127.0.0.1:8000
     volumes:
       - .:/code
-    depends_on:
+    links:
       - db
     environment:
       IN_DOCKER: 1
+
+  webserver:
+    image: jumanjiman/caddy
+    depends_on:
+      - web
+    ports:
+      - "80:8000"
+    command: -port 8000 -host 0.0.0.0 "proxy / web:8000 { }"
