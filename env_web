@@ -1,0 +1,9 @@
+# Add Environment Variables
+DB_NAME=Testify
+DB_USER=Testifyuser
+DB_PASS=bananas
+DB_SERVICE=db
+DB_HOST=db
+DB_PORT=3306
+START_CMD=python3 manage.py migrate
+START_CMD_2=python3 manage.py runserver 0.0.0.0:8000
