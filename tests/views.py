@@ -34,6 +34,10 @@ def password_change(request):
         'form': form
     })
 
+@login_required
+def profile_managment(request):
+	return render(request, 'tests/profile_managment.html')
+
 def signup(request):
 	if request.method == 'POST':
 		form = UserCreationForm(request.POST)
@@ -47,6 +51,72 @@ def signup(request):
 	else:
 		form = UserCreationForm()
 	return render(request, 'registration/signup.html', {'form': form})
+
+def search(request):
+	if request.method == 'POST':
+		searchValue = request.POST.get('search', '')
+		testFound = Test.objects.filter(name=searchValue)
+		userFound = User.objects.filter(username=searchValue)
+		if testFound:
+			return render(request, 'tests/searchResults.html', {'resultTest' : testFound})
+		
+		elif userFound:	
+			return render(request, 'tests/searchResults.html', {'resultUser' : userFound[0]})
+		
+		elif userFound and testFound:
+			return render(request, 'tests/searchResults.html', {'resultTest' : testFound, 'resultUser' : userFound[0]})
+		
+		else:
+			print('shit')
+			return render(request, 'tests/searchResults.html')
+
+def inbox(request):
+	userReciever = request.POST.get('user', '')
+	messeges = Messenger.objects.filter(userReciever=userReciever)
+	userSenderList = list()
+	for i in range(len(messeges)):
+		userSenderList.append(messeges[i].userSender)
+
+	counter = list(range(len(messeges)))
+	return render(request, 'tests/inbox.html', {'messeges' : messeges, 'userSender' : userSenderList, 'counter' : counter})
+
+def userPage(request):
+	if request.method == 'POST':
+		user = request.POST.get('user', '')
+		return render(request, 'tests/userPage.html', {'userReciever' : user})
+
+def sendingMessege(request):
+	userReciever = request.POST.get('userReciever', '')
+	return render(request, 'tests/sendingMessege.html', {'userReciever' : userReciever})
+
+def messegeSend(request):
+	if request.method == 'POST':
+		text = request.POST.get('text', '')
+		userSender = request.POST.get('userSender', '')
+		userReciever = request.POST.get('userReciever', '')
+		messege = Messenger(text=text, userSender=userSender, userReciever=userReciever)
+		messege.save()
+		return HttpResponse('Messege send')
+
+def sendFriendRequest(request):
+	if request.method == 'POST':
+		userSender = request.POST.get('userSender', '')
+		userReciever = request.POST.get('userReciever', '')
+		friendship = Friends(userSender=userSender, userReciever=userReciever, stateOfRequest="pending")
+		friendship.save()
+	return HttpResponse('Request is send')
+
+def friendRequestAccepted(request):
+	pass
+
+
+def uploadProfilePic(request):
+	if request.method == 'POST':
+		imageNew = request.POST.get('image', '')
+		current_user = request.user
+		userDb = UserNew.objects.filter(username=current_user)
+		userDb.image = imageNew
+		return HttpResponse("done")
 
 @login_required
 def solveChooseCategory(request):
@@ -150,6 +220,7 @@ def addNextQuestions(request):
 def solveFirstQuestion(request):
 	if request.method == 'POST':
 		name = request.POST.get('tests', '')
+		print(name)
 		test = Test.objects.get(name=name)
 		questions = Questions.objects.filter(name=test)
 		br = 0

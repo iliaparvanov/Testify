@@ -1,0 +1,11 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+{% load tests_extras %}
+
+{% for num in counter %}
+<input type="button" style='margin-top: 200px; color: black;' readonly="True" value="{{ messeges|return_item:num }}"> {{ userSender|return_item:num }}
+
+{% endfor %}
+
+{% endblock %}

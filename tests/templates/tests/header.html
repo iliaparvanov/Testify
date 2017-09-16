@@ -18,7 +18,7 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 	</head>
   <body>
-
+    
     <!-- Wrapper -->
       <div id="wrapper">
 
@@ -28,30 +28,33 @@
             <h1>Testify</h1>
             <p>Generate or solve tests<br/></p>
           </header>
-
+          <form action=/search/ method="post" accept-charset="utf-8" >
+            <input type="Find" name="search" size="20" maxlength="120" style='color: black;'><input  type="submit" value="Search"></li>
+          </form>
         <!-- Nav -->
         <nav id="nav">
-          <ul>
-            {% if not user.is_authenticated %}
-            <li><a href="/">Introduction</a></li>
-            <li><a href="/login">Log in</a><li>
-            <li><a href="/signup">Sign up</a></li>
-            <li><a href="/create-test">Demo</a><li>
-						{% elif perms.tests.can_delete %}
-            <li><a href="/">Introduction</a></li>
-            <li><a href="/logout">Log out</a></li>
-            <li><a href="/create-test">Creating tests</a></li>
-            <li><a href="/solve-choose-category">Solving tests</a></li>
-            <li><a href="/delete-tests">Deleting tests</a></li>
-						<li><a href="/password-change">Change password for: {{ user.username }}</a></li>
+        <ul>
+          {% if not user.is_authenticated %}
+	            <li><a href="/">Introduction</a></li>
+	            <li><a href="/login">Log in</a><li>
+	            <li><a href="/signup">Sign up</a></li>
+	            <li><a href="/create-test">Demo</a><li>
+			    {% elif perms.tests.can_delete %}
+	            <li><a href="/">Introduction</a></li>
+	            <li><a href="/create-test">Creating tests</a></li>
+	            <li><a href="/solve-choose-category">Solving tests</a></li>
+	            <li><a href="/delete-tests">Deleting tests</a></li>
+				      <li><a href="/profile_managment">Profile</a></li>
+              
             {% else %}
-            <li><a href="/">Introduction</a></li>
-            <li><a href="/logout">Log out</a></li>
-            <li><a href="/create-test">Creating tests</a></li>
-            <li><a href="/solve-choose-category">Solving tests</a></li>
-						<li><a href="/password-change">Change password for: {{ user.username }}</a></li>
+	            <li><a href="/">Introduction</a></li>
+	            <li><a href="/create-test">Creating tests</a></li>
+	            <li><a href="/solve-choose-category">Solving tests</a></li>
+      				<li><a href="/profile_managment">Profile</a></li>
             {% endif %}
-          </ul>
+        
+        </ul>
+
         </nav>
 
       <!--Main-->

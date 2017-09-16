@@ -1,0 +1,25 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+
+<a id="info" style="margin-top: 150px;"> 
+    <ul>
+        <li style="margin-top: 150px;">Name: {{ userReciever }}</li>
+        <li>Tests created:</li>
+        <li>Tests taken:</li>
+        <li>Friends number:</li>
+        <li><form action='/sendFriendRequest/' method='Post'>
+        	<input type='hidden' name='userSender' value="{{ user.username }}">
+        	<input type='hidden' name='userReciever' value="{{ userReciever }}">
+       	    <input type='submit' value="Send friend request">
+       	</form></li>
+        <!-- 
+        <li><form action='/sendingMessege/' method='Post'>
+        	<input type='hidden' name='userReciever' value="{{ user }}">
+       	    <input type='submit' value="Send messege">
+       	</form></li> -->
+    </ul>
+</a>
+
+
+{% endblock %}

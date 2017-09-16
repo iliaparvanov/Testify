@@ -1,0 +1,83 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+<ul style="margin-top: 200px;"">
+    <li><a onclick="switchWindows('info')">Info</a></li>
+    <li><a onclick="switchWindows('friends')">Friends</a></li>
+    <li><a onclick="switchWindows('mytests')">My tests</a></li>
+    <li><a onclick="switchWindows('settings')">Settings</a></li>
+    <li><form action=/inbox/ method="post" accept-charset="utf-8">
+            <input type="hidden" name="user" value={{ user.username }}>
+            <input type="submit" value="Inbox" style='color: black;'>
+        </form></li>
+    <li><a href="/logout">Log out</a></li>
+    
+</ul>
+
+<a id="info" style="margin-left: 200px; margin-top: -150px; display: none;"> 
+    <ul>
+        <li>Name: {{ user.username }}</li>
+        <li><img src
+        <li>Tests created:</li>
+        <li>Tests taken:</li>
+        <li>Friends number:</li>
+    </ul>
+</a>
+
+
+
+<select id="friends" style="margin-left: 200px; margin-top: -150px; display: none;">
+    <option>1</option>
+    <option>2</option>
+</select>
+
+<select id="mytests" style="margin-left: 200px; margin-top: -150px; display: none;">
+    <option>test1</option>
+    <option>test2</option>
+</select>
+
+<ul id="settings" style="margin-left: 200px; margin-top: -150px; display: none;">
+    <li><a >Change name</a></li>
+    <li><a href="/password-change" >Change password</a></li>
+    <li><a >Change test</a></li>
+    <li><a >Delete test</a></li>
+    <li><form action='/uploadProfilePic/' method='Post'>
+        <input id='id_image' type="file" name='image'>
+        <input type="hidden" name="user" value="{{ user.username }}">
+        <input type="submit" value="Upload">
+    </form></li>
+    <li><a href="/logout">Log out</a></li>
+    
+</ul>
+
+
+<script>
+        function switchWindows(choise) {
+            if(choise == "info") {
+                document.getElementById("info").style.display = "block";
+                document.getElementById("friends").style.display = "none";
+                document.getElementById("mytests").style.display = "none";
+                document.getElementById("settings").style.display = "none";
+            }
+            else if(choise == "friends") {
+                document.getElementById("info").style.display = "none";
+                document.getElementById("friends").style.display = "block";
+                document.getElementById("mytests").style.display = "none";
+                document.getElementById("settings").style.display = "none";  
+            }
+            else if(choise == "mytests") {
+                document.getElementById("info").style.display = "none";
+                document.getElementById("friends").style.display = "none";
+                document.getElementById("mytests").style.display = "block";
+                document.getElementById("settings").style.display = "none";  
+            }
+            else if(choise == "settings") {
+                document.getElementById("info").style.display = "none";
+                document.getElementById("friends").style.display = "none";
+                document.getElementById("mytests").style.display = "none";
+                document.getElementById("settings").style.display = "block";  
+            }   
+            
+        }
+    </script>
+{% endblock %}

@@ -6,7 +6,7 @@
      <p style='font-size: 26px; margin-bottom: 1em;'>Choose test</p>
     <form action='/solve-first-question/' method="post">
     	{% csrf_token %}
-        <select name='tests' id='tests' value='tests' >
+        <select name='tests' id='tests' value='tests'>
             {% if tests %}
                 {% for i in len1 %}
                 <option type='text' name="test"  id="test" value='{{ tests|return_item:i }}' style="color: black" />{{ tests|return_item:i }} - (by {{ users|return_item:i }})

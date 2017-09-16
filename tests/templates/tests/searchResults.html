@@ -1,0 +1,33 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+
+    {% if resultTest and resultUser %}
+        <p style='margin-top: 150px;'>Users found</p>
+        <form action='/userPage/' method='Post'>
+            <input type='hidden' name='user' value='{{ resultUser }}'>
+            <input type="submit" value='{{ resultUser }}' name='{{ resultUser }}'>
+        </form>
+        <p>Tests found</p>
+        <form action='/solve-first-question/' method='Post'>
+            <input type="submit" value='{{ resultTest }}' name='{{ resultTest }}'>
+        </form>
+    {% elif resultTest and not resultUser %}
+        <p style='margin-top: 150px;'>Tests found</p>
+        <form action='/solve-first-question/' method='Post'>
+            <input type='hidden' name='tests' value='{{ resultTest }}'>
+            <input type="submit" name='button' value='{{ resultTest }}'>
+        </form>
+        <p>No tests found</p>
+    {% elif resultUser and not resultTest %}
+        <p style='margin-top: 150px;'>Users found</p>
+        <form action='/userPage/' method='Post'>
+            <input type='hidden' name='user' value='{{ resultUser }}'>
+            <input type="submit" value='{{ resultUser }}' name='{{ resultUser }}'>
+        </form>
+        <p>No tests found</p>
+    {% else %}
+        <p style='margin-top: 150px;'>Nothing found</p>
+
+    {% endif %}
+{% endblock %}

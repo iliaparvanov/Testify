@@ -1,0 +1,12 @@
+{% extends "tests/header.html" %}
+
+{% block content %}
+
+<p style='margin-top: 200px;'>Please type your messege</p>
+<form action='/messegeSend/' method='Post'>
+	<input type='text' name='text'>
+	<input type='hidden' name='userSender' value='{{ user.username }}'>
+	<input type='hidden' name='userReciever' value='{{ userReciever }}'>
+	<input type='submit' value="Send">
+</form>
+{% endblock %}
